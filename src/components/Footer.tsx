@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] bg-neutral-950">
+    <footer className="bg-purple-deep text-white">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
@@ -10,9 +10,9 @@ export function Footer() {
             <img
               src="/brandguide/assets/logo-horizontal.svg"
               alt="360Summits"
-              className="mb-4 h-8 w-auto"
+              className="mb-4 h-8 w-auto brightness-0 invert"
             />
-            <p className="mb-6 text-sm leading-relaxed text-neutral-400">
+            <p className="mb-6 text-sm leading-relaxed text-white/70">
               For those who love learning. Virtual summits and masterclasses
               connecting experts with passionate learners worldwide.
             </p>
@@ -35,7 +35,7 @@ export function Footer() {
                   key={social.label}
                   href="#"
                   aria-label={social.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.06] text-neutral-500 transition-all hover:border-brand-lime/30 hover:text-brand-lime"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white/60 transition-all hover:border-white/30 hover:text-white"
                 >
                   <svg
                     width="18"
@@ -56,30 +56,28 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-white">
-              Platform
+            <h4 className="mb-4 font-body text-sm font-semibold uppercase tracking-wider text-white/90">
+              Events
             </h4>
             <div className="flex flex-col gap-3">
-              {["Summits", "Masterclasses", "How It Works", "Pricing"].map(
-                (item) => (
-                  <Link
-                    key={item}
-                    href={
-                      item === "How It Works"
-                        ? "/how-it-works"
-                        : `/${item.toLowerCase()}`
-                    }
-                    className="text-sm text-neutral-400 transition-colors hover:text-brand-lime"
-                  >
-                    {item}
-                  </Link>
-                )
-              )}
+              {["Summits", "Masterclasses", "How It Works"].map((item) => (
+                <Link
+                  key={item}
+                  href={
+                    item === "How It Works"
+                      ? "/how-it-works"
+                      : `/${item.toLowerCase()}`
+                  }
+                  className="text-sm text-white/60 transition-colors hover:text-brand-lime"
+                >
+                  {item}
+                </Link>
+              ))}
             </div>
           </div>
 
           <div>
-            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-white">
+            <h4 className="mb-4 font-body text-sm font-semibold uppercase tracking-wider text-white/90">
               Company
             </h4>
             <div className="flex flex-col gap-3">
@@ -91,7 +89,7 @@ export function Footer() {
                       ? "/brandguide"
                       : `/${item.toLowerCase()}`
                   }
-                  className="text-sm text-neutral-400 transition-colors hover:text-brand-lime"
+                  className="text-sm text-white/60 transition-colors hover:text-brand-lime"
                 >
                   {item}
                 </Link>
@@ -100,10 +98,10 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-white">
+            <h4 className="mb-4 font-body text-sm font-semibold uppercase tracking-wider text-white/90">
               Contact
             </h4>
-            <div className="flex flex-col gap-3 text-sm text-neutral-400">
+            <div className="flex flex-col gap-3 text-sm text-white/60">
               <a
                 href="tel:+17144361234"
                 className="transition-colors hover:text-brand-lime"
@@ -121,11 +119,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 md:flex-row">
-          <p className="text-xs text-neutral-500">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
+          <p className="text-xs text-white/40">
             &copy; {new Date().getFullYear()} 360Summits. All rights reserved.
           </p>
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-white/40">
             For Those Who Love Learning
           </p>
         </div>

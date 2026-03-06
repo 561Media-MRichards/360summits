@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const links = [
   { href: "/", label: "Home" },
@@ -15,9 +20,37 @@ const links = [
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Subtle background solidification + shadow on scroll
+  useGSAP(() => {
+    if (!navRef.current) return;
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const nav = navRef.current;
+
+    ScrollTrigger.create({
+      start: "top -60",
+      end: 99999,
+      onUpdate: (self) => {
+        const scrolled = self.progress > 0;
+        gsap.to(nav, {
+          boxShadow: scrolled
+            ? "0 1px 16px rgba(0, 0, 0, 0.06)"
+            : "0 0px 0px rgba(0, 0, 0, 0)",
+          borderBottomColor: scrolled
+            ? "rgba(0, 0, 0, 0.08)"
+            : "rgba(0, 0, 0, 0.05)",
+          duration: 0.35,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      },
+    });
+  });
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-neutral-950/80 backdrop-blur-xl">
+    <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 bg-warm-white/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
           <img
@@ -35,8 +68,8 @@ export function Navbar() {
               href={link.href}
               className={`font-body text-sm font-medium transition-colors ${
                 pathname === link.href
-                  ? "text-brand-lime"
-                  : "text-neutral-400 hover:text-white"
+                  ? "text-brand-purple"
+                  : "text-slate-500 hover:text-brand-purple"
               }`}
             >
               {link.label}
@@ -44,16 +77,16 @@ export function Navbar() {
           ))}
           <Link
             href="/contact"
-            className="rounded-lg bg-brand-lime px-5 py-2 font-display text-sm font-semibold uppercase tracking-wide text-neutral-950 transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(132,204,22,0.25)]"
+            className="rounded-lg bg-brand-purple px-5 py-2.5 font-body text-sm font-semibold text-white transition-all hover:bg-purple-light hover:shadow-md"
           >
-            Get Started
+            Join Free
           </Link>
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="text-white md:hidden"
+          className="text-brand-purple md:hidden"
           aria-label="Toggle menu"
         >
           <svg
@@ -82,7 +115,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-white/[0.06] bg-neutral-950/95 backdrop-blur-xl md:hidden">
+        <div className="border-t border-slate-200 bg-warm-white/95 backdrop-blur-xl md:hidden">
           <div className="flex flex-col gap-1 px-6 py-4">
             {links.map((link) => (
               <Link
@@ -91,8 +124,8 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
                   pathname === link.href
-                    ? "bg-brand-lime/10 text-brand-lime"
-                    : "text-neutral-400 hover:bg-white/[0.04] hover:text-white"
+                    ? "bg-purple-tint text-brand-purple"
+                    : "text-slate-500 hover:bg-slate-50 hover:text-brand-purple"
                 }`}
               >
                 {link.label}

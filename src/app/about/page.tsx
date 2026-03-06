@@ -1,26 +1,81 @@
-import Link from "next/link";
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "About — 360Summits",
-  description:
-    "Learn about George Shepherd and the 360Summits mission to create transformative virtual learning experiences.",
-};
+import Link from "next/link";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 
 export default function AboutPage() {
+  const mainRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion() || !mainRef.current) return;
+      const ctx = mainRef.current;
+
+      const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const heroTargets = ctx.querySelectorAll("[data-page-hero]");
+      gsap.set(heroTargets, { y: 24, opacity: 0 });
+      heroTl
+        .to("[data-page-hero='eyebrow']", { y: 0, opacity: 1, duration: 0.5 })
+        .to("[data-page-hero='heading']", { y: 0, opacity: 1, duration: 0.7 }, "-=0.3")
+        .to("[data-page-hero='sub']", { y: 0, opacity: 1, duration: 0.6 }, "-=0.35");
+
+      ctx.querySelectorAll("[data-reveal]").forEach((el) => {
+        const delay = parseFloat((el as HTMLElement).dataset.revealDelay || "0");
+        gsap.set(el, { y: 32, opacity: 0 });
+        gsap.to(el, {
+          y: 0, opacity: 1, duration: 0.8, delay,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
+        });
+      });
+
+      ctx.querySelectorAll("[data-stagger-group]").forEach((group) => {
+        const items = group.querySelectorAll("[data-stagger-item]");
+        if (!items.length) return;
+        gsap.set(items, { y: 40, opacity: 0 });
+        ScrollTrigger.batch(items, {
+          start: "top 90%",
+          onEnter: (batch) => {
+            gsap.to(batch, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out", stagger: 0.12 });
+          },
+          once: true,
+        });
+      });
+    },
+    { scope: mainRef }
+  );
+
   return (
-    <main className="pt-20">
+    <main ref={mainRef} className="pt-20">
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-white/[0.06] py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(51,3,98,0.25),transparent_60%)]" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-purple-wash to-warm-white py-24">
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <span className="mb-3 inline-flex text-xs font-semibold uppercase tracking-[0.15em] text-brand-lime">
+          <p
+            data-page-hero="eyebrow"
+            className="mb-4 font-body text-sm font-medium uppercase tracking-widest text-purple-light"
+          >
             Our Story
-          </span>
-          <h1 className="mb-6 font-display text-5xl font-bold text-white md:text-6xl">
+          </p>
+          <h1
+            data-page-hero="heading"
+            className="mb-6 font-display text-5xl font-bold text-brand-purple md:text-6xl"
+          >
             For Those Who Love Learning
           </h1>
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-300">
+          <p
+            data-page-hero="sub"
+            className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600"
+          >
             360Summits was born from a simple belief: everyone deserves access to
             world-class education, regardless of where they live or how much they
             can afford.
@@ -29,22 +84,21 @@ export default function AboutPage() {
       </section>
 
       {/* Founder */}
-      <section className="border-b border-white/[0.06] bg-neutral-900 py-24">
+      <section className="bg-warm-ivory py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid items-center gap-16 md:grid-cols-2">
-            <div>
-              <span className="mb-3 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.15em] text-brand-lime">
+            <div data-reveal>
+              <p className="mb-4 font-body text-sm font-medium uppercase tracking-widest text-purple-light">
                 Meet the Founder
-                <span className="h-px max-w-[200px] flex-1 bg-white/[0.08]" />
-              </span>
-              <h2 className="mb-6 font-display text-4xl font-bold text-white">
+              </p>
+              <h2 className="mb-6 font-display text-4xl font-bold text-brand-purple">
                 George Shepherd
               </h2>
-              <div className="space-y-4 text-neutral-300">
+              <div className="space-y-4 text-slate-600 leading-relaxed">
                 <p>
-                  George Shepherd is a visionary entrepreneur based in Boynton
-                  Beach, Florida, who has dedicated his career to creating
-                  platforms that connect experts with eager learners.
+                  George Shepherd is an entrepreneur based in Boynton Beach,
+                  Florida, who has dedicated his career to creating spaces where
+                  experts and eager learners can connect.
                 </p>
                 <p>
                   With a background in digital marketing, web design, and event
@@ -53,25 +107,25 @@ export default function AboutPage() {
                 </p>
                 <p>
                   His mission extends beyond education — George is passionate
-                  about using his platform to support anti-trafficking
-                  initiatives, dedicating a portion of summit proceeds to
-                  organizations fighting modern slavery.
+                  about supporting anti-trafficking initiatives, dedicating a
+                  portion of summit proceeds to organizations fighting modern
+                  slavery.
                 </p>
               </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center" data-reveal data-reveal-delay="0.15">
               <div className="relative">
-                <div className="h-80 w-80 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-blue p-0.5">
-                  <div className="flex h-full w-full items-center justify-center rounded-2xl bg-neutral-800">
+                <div className="h-80 w-80 rounded-2xl border border-slate-200 bg-white p-1 shadow-md">
+                  <div className="flex h-full w-full items-center justify-center rounded-xl bg-purple-wash">
                     <div className="text-center">
-                      <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-brand-purple to-purple-light font-display text-3xl font-bold text-white">
+                      <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-brand-purple font-display text-3xl font-bold text-white">
                         GS
                       </div>
-                      <div className="font-display text-xl font-bold text-white">
+                      <div className="font-display text-xl font-bold text-brand-purple">
                         George Shepherd
                       </div>
-                      <div className="text-sm text-neutral-400">
+                      <div className="text-sm text-slate-500">
                         Founder & CEO
                       </div>
                     </div>
@@ -84,18 +138,18 @@ export default function AboutPage() {
       </section>
 
       {/* Mission */}
-      <section className="border-b border-white/[0.06] py-24">
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-16 text-center">
-            <span className="mb-3 inline-flex text-xs font-semibold uppercase tracking-[0.15em] text-brand-lime">
-              What Drives Us
-            </span>
-            <h2 className="font-display text-4xl font-bold text-white md:text-5xl">
-              Our Mission & Values
+          <div className="mb-16 text-center" data-reveal>
+            <h2 className="mb-4 font-display text-4xl font-bold text-brand-purple">
+              Our Mission &amp; Values
             </h2>
+            <p className="mx-auto max-w-xl text-lg text-slate-600">
+              What drives everything we do at 360Summits.
+            </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3" data-stagger-group>
             {[
               {
                 title: "Democratize Education",
@@ -106,7 +160,7 @@ export default function AboutPage() {
               {
                 title: "Empower Experts",
                 description:
-                  "We give health coaches, entrepreneurs, and thought leaders a platform to share their message with thousands of engaged learners.",
+                  "We give health coaches, entrepreneurs, and thought leaders a stage to share their message with thousands of engaged learners.",
                 icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 110 8 4 4 0 010-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75",
               },
               {
@@ -118,15 +172,16 @@ export default function AboutPage() {
             ].map((value) => (
               <div
                 key={value.title}
-                className="rounded-xl border border-white/[0.08] bg-neutral-800 p-8 transition-all hover:-translate-y-1 hover:border-brand-lime/20"
+                data-stagger-item
+                className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all hover:shadow-md"
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-purple/20">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-tint">
                   <svg
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#8B5CF6"
+                    stroke="#5B1A9E"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -134,10 +189,10 @@ export default function AboutPage() {
                     <path d={value.icon} />
                   </svg>
                 </div>
-                <h3 className="mb-3 font-display text-xl font-bold text-white">
+                <h3 className="mb-3 font-display text-xl font-bold text-brand-purple">
                   {value.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-neutral-400">
+                <p className="text-sm leading-relaxed text-slate-500">
                   {value.description}
                 </p>
               </div>
@@ -147,18 +202,18 @@ export default function AboutPage() {
       </section>
 
       {/* Industries */}
-      <section className="border-b border-white/[0.06] bg-neutral-900 py-24">
+      <section className="bg-warm-ivory py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-12 text-center">
-            <span className="mb-3 inline-flex text-xs font-semibold uppercase tracking-[0.15em] text-brand-lime">
-              Industries We Serve
-            </span>
-            <h2 className="font-display text-4xl font-bold text-white">
+          <div className="mb-12 text-center" data-reveal>
+            <h2 className="mb-4 font-display text-4xl font-bold text-brand-purple">
               Summit Topics
             </h2>
+            <p className="mx-auto max-w-xl text-lg text-slate-600">
+              We host summits across a wide range of industries and interests.
+            </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-3" data-stagger-group>
             {[
               "Health & Wellness",
               "Business & Marketing",
@@ -175,7 +230,8 @@ export default function AboutPage() {
             ].map((topic) => (
               <span
                 key={topic}
-                className="rounded-full border border-white/[0.08] bg-neutral-800 px-5 py-2.5 text-sm font-medium text-neutral-300 transition-all hover:border-brand-lime/20 hover:text-brand-lime"
+                data-stagger-item
+                className="rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 shadow-sm transition-all hover:border-purple-muted hover:text-brand-purple"
               >
                 {topic}
               </span>
@@ -185,18 +241,18 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+      <section className="bg-brand-purple py-24">
+        <div className="mx-auto max-w-3xl px-6 text-center" data-reveal>
           <h2 className="mb-6 font-display text-4xl font-bold text-white">
             Want to Host a Summit?
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-neutral-300">
+          <p className="mx-auto mb-10 max-w-xl text-lg text-white/70">
             Whether you&apos;re a speaker, coach, or entrepreneur — we&apos;ll
             help you create a world-class virtual event.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-brand-lime to-lime-light px-8 py-4 font-display text-base font-bold uppercase tracking-wide text-neutral-950 transition-all hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(132,204,22,0.3)]"
+            className="inline-flex items-center gap-2 rounded-xl bg-brand-lime px-8 py-4 font-body text-base font-semibold text-brand-purple transition-all hover:shadow-lg hover:shadow-brand-lime/20"
           >
             Get in Touch
             <svg

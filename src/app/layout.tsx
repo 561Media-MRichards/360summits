@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "360Summits — Summits & Masterclasses For Those Who Love Learning",
   description:
-    "360Summits is a virtual summit hosting platform connecting experts with learners through transformative online events in health, wellness, business, and personal growth.",
+    "360Summits connects passionate learners with world-class experts through transformative virtual summits in health, wellness, business, and personal growth.",
   keywords: [
     "virtual summits",
     "online masterclasses",
@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${plusJakartaSans.variable} antialiased`}
+        className={`${playfairDisplay.variable} ${dmSans.variable} antialiased`}
       >
         <Navbar />
         {children}
