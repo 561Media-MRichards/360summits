@@ -1,0 +1,2569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>360Summits — Brand System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS CUSTOM PROPERTIES — THE BRAND SYSTEM
+   ═══════════════════════════════════════════ */
+:root {
+  /* Main Colors */
+  --brand-purple: #330362;
+  --brand-blue: #040ECF;
+
+  /* Accent */
+  --brand-lime: #84CC16;
+
+  /* Extended Purple */
+  --purple-light: #5B1A9E;
+  --purple-lighter: #8B5CF6;
+  --purple-muted: #A78BFA;
+
+  /* Extended Blue */
+  --blue-light: #3B49E8;
+  --blue-lighter: #818CF8;
+
+  /* Extended Lime */
+  --lime-light: #A3E635;
+  --lime-dark: #65A30D;
+
+  /* Neutrals */
+  --neutral-950: #0a0a0f;
+  --neutral-900: #111118;
+  --neutral-800: #1e1e2a;
+  --neutral-700: #2d2d3d;
+  --neutral-600: #44446a;
+  --neutral-500: #6b6b8d;
+  --neutral-400: #9393b0;
+  --neutral-300: #b8b8d0;
+  --neutral-200: #dddde8;
+  --neutral-100: #eeeff5;
+  --neutral-50: #f7f7fb;
+  --white: #ffffff;
+
+  /* Backgrounds */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-elevated: #1e1e2a;
+  --bg-surface: #2d2d3d;
+
+  /* Text */
+  --text-primary: #f0f0f8;
+  --text-secondary: #b8b8d0;
+  --text-muted: #6b6b8d;
+  --text-dark: #111118;
+  --text-body-dark: #44446a;
+
+  /* Borders */
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-accent: rgba(132,204,22,0.30);
+  --border-purple: rgba(91,26,158,0.30);
+
+  /* Gradients */
+  --gradient-cta: linear-gradient(135deg, #84CC16 0%, #A3E635 100%);
+  --gradient-purple: linear-gradient(135deg, #330362 0%, #5B1A9E 100%);
+  --gradient-blue: linear-gradient(135deg, #040ECF 0%, #818CF8 100%);
+  --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(51,3,98,0.35) 0%, transparent 60%);
+  --gradient-card-overlay: linear-gradient(to top, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.6) 50%, transparent 100%);
+
+  /* Shadows */
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-card-hover: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(132,204,22,0.15);
+  --shadow-lime: 0 4px 20px rgba(132,204,22,0.25);
+  --shadow-purple: 0 4px 20px rgba(51,3,98,0.35);
+  --shadow-focus: 0 0 0 3px rgba(132,204,22,0.4);
+  --shadow-light: 0 2px 16px rgba(0,0,0,0.06);
+  --shadow-light-hover: 0 8px 32px rgba(0,0,0,0.1);
+
+  /* Radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  /* Fluid Type Scale */
+  --text-display: clamp(3.5rem, 6vw, 6rem);
+  --text-h1: clamp(2.5rem, 4vw, 4rem);
+  --text-h2: clamp(1.875rem, 3vw, 2.75rem);
+  --text-h3: clamp(1.375rem, 2vw, 1.75rem);
+  --text-h4: 1.25rem;
+  --text-body-lg: 1.125rem;
+  --text-body: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Spacing */
+  --space-section: clamp(5rem, 10vw, 8rem);
+  --space-component: clamp(2rem, 4vw, 4rem);
+  --space-element: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   SIDEBAR NAVIGATION
+   ═══════════════════════════════════════════ */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-subtle);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-elevated) transparent;
+}
+
+.sidebar-logo {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.sidebar-logo svg {
+  width: 160px;
+  height: auto;
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+  flex: 1;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  letter-spacing: 0.01em;
+}
+
+.sidebar-nav a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--brand-lime);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.2s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  color: var(--text-primary);
+}
+
+.sidebar-nav a:hover::before,
+.sidebar-nav a.active::before {
+  height: 20px;
+}
+
+.sidebar-nav a .nav-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  color: var(--brand-lime);
+  min-width: 1.25rem;
+  opacity: 0.6;
+}
+
+.sidebar-nav a:hover .nav-num,
+.sidebar-nav a.active .nav-num {
+  opacity: 1;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.sidebar-footer span {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════
+   MAIN CONTENT AREA
+   ═══════════════════════════════════════════ */
+.main {
+  margin-left: 260px;
+}
+
+.section {
+  padding: var(--space-section) clamp(2rem, 5vw, 5rem);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.section--dark { background: var(--bg-primary); }
+.section--darker { background: var(--bg-secondary); }
+.section--light { background: var(--neutral-50); color: var(--text-dark); }
+.section--light .section-label { color: var(--brand-purple); }
+.section--light .section-title { color: var(--text-dark); }
+.section--light .section-desc { color: var(--text-body-dark); }
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-lime);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+  max-width: 200px;
+}
+
+.section--light .section-label::after {
+  background: rgba(17,17,24,0.1);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-desc {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: var(--space-component);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   00. HERO HEADER
+   ═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(4,14,207,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(132,204,22,0.1);
+  border: 1px solid rgba(132,204,22,0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-lime);
+  margin-bottom: 2rem;
+  animation: fadeDown 0.6s ease forwards;
+}
+
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--brand-lime);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-logo {
+  margin-bottom: 3rem;
+  animation: fadeUp 0.8s ease 0.1s forwards;
+  opacity: 0;
+}
+
+.hero-logo svg {
+  width: min(320px, 70vw);
+  height: auto;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.hero h1 span {
+  background: var(--gradient-cta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  animation: fadeUp 0.8s ease 0.35s forwards;
+  opacity: 0;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  animation: fadeUp 0.8s ease 0.5s forwards;
+  opacity: 0;
+}
+
+.hero-meta-item {
+  text-align: center;
+}
+
+.hero-meta-item .label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.hero-meta-item .value {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   01. LOGO USAGE
+   ═══════════════════════════════════════════ */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.logo-card {
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.logo-card svg {
+  max-width: 280px;
+  height: auto;
+}
+
+.logo-card--dark { background: var(--bg-secondary); }
+.logo-card--light { background: var(--neutral-50); }
+.logo-card--purple { background: var(--brand-purple); }
+
+.logo-card span {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.logo-card--light span { color: var(--text-body-dark); }
+.logo-card--purple span { color: rgba(255,255,255,0.7); }
+
+.do-dont-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: var(--space-component);
+  padding-top: var(--space-component);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.do-dont-card {
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.do-dont-card .badge {
+  display: inline-flex;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.do-dont-card .badge--do {
+  background: rgba(132,204,22,0.1);
+  color: var(--brand-lime);
+}
+
+.do-dont-card .badge--dont {
+  background: rgba(239,68,68,0.1);
+  color: #EF4444;
+}
+
+.do-dont-card p {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   02. COLOR PALETTE
+   ═══════════════════════════════════════════ */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.color-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.color-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.color-swatch {
+  height: 140px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.color-swatch-tints {
+  display: flex;
+  gap: 3px;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.color-tint {
+  width: 20px;
+  height: 36px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.color-tint::after {
+  content: attr(data-pct);
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+}
+
+.color-info {
+  padding: 1.25rem;
+}
+
+.color-name {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.color-role {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.color-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.color-tag {
+  display: inline-flex;
+  padding: 0.2rem 0.6rem;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   03. TYPOGRAPHY SCALE
+   ═══════════════════════════════════════════ */
+.type-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.type-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: baseline;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 2rem;
+}
+
+.type-row:last-child { border-bottom: none; }
+
+.type-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.type-meta .size {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: var(--text-xs);
+  color: var(--brand-lime);
+  letter-spacing: 0.02em;
+}
+
+.type-meta .weight {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.type-sample-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.type-sample-h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.type-sample-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.type-sample-h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.type-sample-h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.type-sample-body-lg {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.type-sample-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.type-sample-sm {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.type-sample-xs {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.type-pairing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: var(--space-component);
+  padding-top: var(--space-component);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.type-pairing-card {
+  padding: 2.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
+
+.type-pairing-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.type-pairing-card p {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.type-pairing-card .font-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-lime);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════
+   04. BUTTONS
+   ═══════════════════════════════════════════ */
+.button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.button-row {
+  margin-bottom: 2.5rem;
+}
+
+.button-row-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 2rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--brand-lime);
+  color: var(--neutral-950);
+  border-color: var(--brand-lime);
+}
+
+.btn-primary:hover {
+  background: var(--lime-light);
+  border-color: var(--lime-light);
+  box-shadow: var(--shadow-lime);
+  transform: translateY(-2px);
+}
+
+.btn-gradient {
+  background: var(--gradient-cta);
+  color: var(--neutral-950);
+  border: none;
+  font-weight: 700;
+}
+
+.btn-gradient:hover {
+  box-shadow: var(--shadow-lime);
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--brand-lime);
+  border-color: var(--brand-lime);
+}
+
+.btn-secondary:hover {
+  background: rgba(132,204,22,0.1);
+  transform: translateY(-2px);
+}
+
+.btn-purple {
+  background: var(--brand-purple);
+  color: #fff;
+  border-color: var(--brand-purple);
+}
+
+.btn-purple:hover {
+  background: var(--purple-light);
+  border-color: var(--purple-light);
+  box-shadow: var(--shadow-purple);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: var(--brand-lime);
+}
+
+.btn-ghost .arrow {
+  transition: transform 0.2s ease;
+}
+
+.btn-ghost:hover .arrow {
+  transform: translateX(4px);
+}
+
+.btn-disabled {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border-color: var(--border-subtle);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-sm { padding: 0.5rem 1.25rem; font-size: var(--text-sm); }
+.btn-lg { padding: 1rem 2.75rem; font-size: var(--text-body-lg); }
+
+/* ═══════════════════════════════════════════
+   05. CARD COMPONENTS
+   ═══════════════════════════════════════════ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card-glass-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.card-glass-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(51,3,98,0.5) 0%, transparent 70%);
+  top: -40px;
+  right: -20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-glass-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(4,14,207,0.5) 0%, transparent 70%);
+  bottom: -30px;
+  left: -10px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-glass {
+  position: relative;
+  z-index: 1;
+  background: rgba(30,30,42,0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.card-glass:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  background: rgba(30,30,42,0.55);
+}
+
+.card-stat {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  border-top: 3px solid var(--brand-lime);
+  transition: all 0.3s ease;
+}
+
+.card-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.card-stat .stat-value {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: 700;
+  color: var(--brand-lime);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.card-stat .stat-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.card-summit {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card-summit:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-summit .summit-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(51,3,98,0.15);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  color: var(--purple-lighter);
+}
+
+.card-summit h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card-summit p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.card-summit .learn-more {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--brand-lime);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  position: relative;
+}
+
+.card-summit .learn-more::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--brand-lime);
+  transition: width 0.25s ease;
+}
+
+.card-summit:hover .learn-more::after {
+  width: 100%;
+}
+
+.card-testimonial {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.card-testimonial:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.card-testimonial .stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 1rem;
+  color: var(--brand-lime);
+}
+
+.card-testimonial blockquote {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-style: italic;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.card-testimonial .author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.card-testimonial .author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.card-testimonial .author-name {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.card-testimonial .author-title {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   06. GLASSMORPHISM DEMO
+   ═══════════════════════════════════════════ */
+.glass-demo-area {
+  position: relative;
+  min-height: 500px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.glass-demo-area::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(51,3,98,0.4) 0%, transparent 70%);
+  top: -100px;
+  right: -50px;
+  pointer-events: none;
+}
+
+.glass-demo-area::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(4,14,207,0.3) 0%, transparent 70%);
+  bottom: -80px;
+  left: -30px;
+  pointer-events: none;
+}
+
+.glass-card-demo {
+  position: relative;
+  z-index: 1;
+  background: rgba(30,30,42,0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  transition: all 0.4s ease;
+}
+
+.glass-card-demo:hover {
+  background: rgba(30,30,42,0.55);
+  border-color: rgba(132,204,22,0.25);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  transform: translateY(-6px);
+}
+
+.glass-card-demo h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.glass-card-demo p {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.glass-specs {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-spec-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.glass-spec-item:last-child { border-bottom: none; }
+
+.glass-spec-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.glass-spec-value {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: var(--text-sm);
+  color: var(--purple-lighter);
+}
+
+/* ═══════════════════════════════════════════
+   07. GRADIENT SHOWCASE
+   ═══════════════════════════════════════════ */
+.gradient-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.gradient-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.gradient-preview {
+  height: 160px;
+  position: relative;
+}
+
+.gradient-info {
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+}
+
+.gradient-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-body);
+  margin-bottom: 0.35rem;
+}
+
+.gradient-css {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+/* ═══════════════════════════════════════════
+   08. SPACING & LAYOUT
+   ═══════════════════════════════════════════ */
+.spacing-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: var(--space-component);
+}
+
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.spacing-label {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  width: 180px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.spacing-bar {
+  height: 28px;
+  background: rgba(51,3,98,0.2);
+  border-left: 3px solid var(--brand-purple);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.spacing-bar:hover {
+  background: rgba(51,3,98,0.35);
+}
+
+.spacing-bar span {
+  font-size: var(--text-xs);
+  color: var(--purple-lighter);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.grid-demo {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  padding-top: var(--space-component);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.grid-col {
+  height: 80px;
+  background: rgba(4,14,207,0.12);
+  border: 1px solid rgba(4,14,207,0.25);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: var(--text-xs);
+  color: var(--blue-lighter);
+  font-weight: 600;
+}
+
+.grid-overlay {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.grid-span {
+  background: rgba(132,204,22,0.08);
+  border: 1px dashed rgba(132,204,22,0.3);
+  border-radius: var(--radius-sm);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--brand-lime);
+}
+
+.grid-span-7 { grid-column: span 7; }
+.grid-span-5 { grid-column: span 5; }
+.grid-span-4 { grid-column: span 4; }
+.grid-span-8 { grid-column: span 8; }
+.grid-span-6 { grid-column: span 6; }
+.grid-span-12 { grid-column: span 12; }
+
+/* ═══════════════════════════════════════════
+   09. ICONS
+   ═══════════════════════════════════════════ */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
+
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.icon-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.icon-card:hover svg {
+  color: var(--brand-lime);
+}
+
+.icon-card svg {
+  width: 28px;
+  height: 28px;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.icon-card span {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.icon-sizes {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5rem;
+  margin-top: var(--space-component);
+  padding-top: var(--space-component);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.icon-size-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-size-item svg { color: var(--text-primary); }
+
+.icon-size-item span {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   10. DARK VS LIGHT
+   ═══════════════════════════════════════════ */
+.theme-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.theme-panel {
+  padding: 3rem;
+}
+
+.theme-panel--dark {
+  background: var(--bg-primary);
+}
+
+.theme-panel--light {
+  background: var(--neutral-50);
+}
+
+.theme-badge {
+  display: inline-flex;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.theme-panel--dark .theme-badge {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-muted);
+}
+
+.theme-panel--light .theme-badge {
+  background: rgba(51,3,98,0.08);
+  color: var(--brand-purple);
+}
+
+.theme-panel h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.theme-panel--dark h3 { color: var(--text-primary); }
+.theme-panel--light h3 { color: var(--text-dark); }
+
+.theme-panel p {
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.theme-panel--dark p { color: var(--text-secondary); }
+.theme-panel--light p { color: var(--text-body-dark); }
+
+.theme-panel .btn-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.theme-panel--dark .btn-demo {
+  background: var(--brand-lime);
+  color: var(--neutral-950);
+}
+
+.theme-panel--light .btn-demo {
+  background: var(--brand-purple);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════
+   11. FORM ELEMENTS
+   ═══════════════════════════════════════════ */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  outline: none;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--brand-lime);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b8d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.form-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.form-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.form-checkbox-label:hover {
+  border-color: var(--border-accent);
+  color: var(--text-primary);
+}
+
+.form-checkbox-label input { display: none; }
+
+.form-checkbox-label input:checked + span {
+  color: var(--brand-lime);
+}
+
+.form-checkbox-label:has(input:checked) {
+  border-color: var(--brand-lime);
+  background: rgba(132,204,22,0.1);
+}
+
+.form-input--error { border-color: #EF4444; }
+
+.form-error {
+  font-size: var(--text-xs);
+  color: #EF4444;
+  margin-top: -0.25rem;
+}
+
+/* ═══════════════════════════════════════════
+   12. SHADOWS
+   ═══════════════════════════════════════════ */
+.shadow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.shadow-card {
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.shadow-card .shadow-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-body);
+  margin-bottom: 0.5rem;
+}
+
+.shadow-card .shadow-value {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .color-grid { grid-template-columns: repeat(2, 1fr); }
+  .cards-grid { grid-template-columns: 1fr; }
+  .type-pairing { grid-template-columns: 1fr; }
+  .icon-grid { grid-template-columns: repeat(3, 1fr); }
+  .shadow-grid { grid-template-columns: repeat(2, 1fr); }
+  .glass-demo-area { grid-template-columns: 1fr; }
+  .theme-comparison { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .gradient-grid { grid-template-columns: 1fr; }
+  .grid-demo { gap: 4px; }
+  .grid-overlay { gap: 4px; }
+  .logo-grid { grid-template-columns: 1fr; }
+  .do-dont-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 3rem 1.25rem; }
+  .color-grid { grid-template-columns: 1fr; }
+  .icon-grid { grid-template-columns: repeat(2, 1fr); }
+  .shadow-grid { grid-template-columns: 1fr; }
+  .hero-meta { flex-direction: column; gap: 1.5rem; }
+  .button-grid { flex-direction: column; align-items: flex-start; }
+  .type-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .spacing-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .spacing-label { text-align: left; width: auto; }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL ANIMATION UTILITY
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR NAVIGATION
+     ═══════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <img src="assets/logo-horizontal.svg" alt="360Summits" style="width:160px;height:auto;">
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#hero"><span class="nav-num">00</span> Overview</a>
+    <a href="#logos"><span class="nav-num">01</span> Logo Usage</a>
+    <a href="#colors"><span class="nav-num">02</span> Color Palette</a>
+    <a href="#typography"><span class="nav-num">03</span> Typography</a>
+    <a href="#buttons"><span class="nav-num">04</span> Buttons</a>
+    <a href="#cards"><span class="nav-num">05</span> Cards</a>
+    <a href="#glass"><span class="nav-num">06</span> Glassmorphism</a>
+    <a href="#gradients"><span class="nav-num">07</span> Gradients</a>
+    <a href="#spacing"><span class="nav-num">08</span> Spacing & Grid</a>
+    <a href="#icons"><span class="nav-num">09</span> Iconography</a>
+    <a href="#themes"><span class="nav-num">10</span> Dark vs Light</a>
+    <a href="#forms"><span class="nav-num">11</span> Form Elements</a>
+    <a href="#shadows"><span class="nav-num">12</span> Shadow System</a>
+  </nav>
+  <div class="sidebar-footer">
+    <span>Version 1.0 &middot; Mar 2026</span>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- 00. HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Brand System v1.0
+      </div>
+      <div class="hero-logo">
+        <img src="assets/logo-horizontal.svg" alt="360Summits" style="width:min(360px, 70vw);height:auto;">
+      </div>
+      <h1>Brand <span>Identity</span> System</h1>
+      <p>The complete visual language for 360Summits. Every color, typeface, component, and pattern — for those who love learning.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="label">Colors</span>
+          <span class="value">7 Brand + Extended</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Typography</span>
+          <span class="value">2 Families, 9 Sizes</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="label">Components</span>
+          <span class="value">13 Patterns</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01. LOGO USAGE -->
+  <section class="section section--dark" id="logos">
+    <div class="reveal">
+      <span class="section-label">01 Logo Usage</span>
+      <h2 class="section-title">Logo System</h2>
+      <p class="section-desc">Two logo variants — horizontal and square — serve different contexts. The horizontal logo is the primary mark. The square logo works for social profiles, favicons, and compact layouts.</p>
+    </div>
+
+    <div class="logo-grid reveal">
+      <div class="logo-card logo-card--dark">
+        <img src="assets/logo-horizontal.svg" alt="Horizontal Logo on Dark" style="max-width:300px;height:auto;">
+        <span>Horizontal — Dark Background</span>
+      </div>
+      <div class="logo-card logo-card--light">
+        <img src="assets/logo-horizontal.svg" alt="Horizontal Logo on Light" style="max-width:300px;height:auto;">
+        <span>Horizontal — Light Background</span>
+      </div>
+      <div class="logo-card logo-card--dark">
+        <img src="assets/logo-square.svg" alt="Square Logo on Dark" style="max-width:160px;height:auto;">
+        <span>Square — Dark Background</span>
+      </div>
+      <div class="logo-card logo-card--purple">
+        <img src="assets/logo-square.svg" alt="Square Logo on Purple" style="max-width:160px;height:auto;filter:brightness(2);">
+        <span>Square — Brand Purple Background</span>
+      </div>
+    </div>
+
+    <div class="do-dont-grid reveal">
+      <div class="do-dont-card">
+        <span class="badge badge--do">Do</span>
+        <p>Use provided SVG files at any scale. Maintain proportions and clear space equal to the height of the diamond mark.</p>
+      </div>
+      <div class="do-dont-card">
+        <span class="badge badge--dont">Don't</span>
+        <p>Do not stretch, rotate, or alter the proportions of the logo. Do not add drop shadows or effects.</p>
+      </div>
+      <div class="do-dont-card">
+        <span class="badge badge--dont">Don't</span>
+        <p>Do not change individual letter colors or swap the purple and blue accent. Do not place on busy or low-contrast backgrounds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02. COLOR PALETTE -->
+  <section class="section section--darker" id="colors">
+    <div class="reveal">
+      <span class="section-label">02 Color Palette</span>
+      <h2 class="section-title">Brand Colors</h2>
+      <p class="section-desc">Seven official colors form the 360Summits identity. Deep purple anchors the brand, blue provides energy, and lime green drives action. Extended tints and neutrals round out the system.</p>
+    </div>
+
+    <div class="color-grid reveal">
+      <!-- Primary Purple -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #330362;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: rgba(51,3,98,0.9);" data-pct="90%"></div>
+            <div class="color-tint" style="background: rgba(51,3,98,0.7);" data-pct="70%"></div>
+            <div class="color-tint" style="background: rgba(51,3,98,0.5);" data-pct="50%"></div>
+            <div class="color-tint" style="background: rgba(51,3,98,0.3);" data-pct="30%"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Summit Purple</div>
+          <div class="color-role">Primary &middot; Logo "360" &middot; Brand Anchor</div>
+          <div class="color-values">
+            <span class="color-tag">#330362</span>
+            <span class="color-tag">RGB 51 3 98</span>
+            <span class="color-tag">CMYK 82 100 0 24</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accent Blue -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #040ECF;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: rgba(4,14,207,0.9);" data-pct="90%"></div>
+            <div class="color-tint" style="background: rgba(4,14,207,0.7);" data-pct="70%"></div>
+            <div class="color-tint" style="background: rgba(4,14,207,0.5);" data-pct="50%"></div>
+            <div class="color-tint" style="background: rgba(4,14,207,0.3);" data-pct="30%"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Diamond Blue</div>
+          <div class="color-role">Secondary &middot; Logo Diamond Accent &middot; Links</div>
+          <div class="color-values">
+            <span class="color-tag">#040ECF</span>
+            <span class="color-tag">RGB 4 14 207</span>
+            <span class="color-tag">CMYK 95 88 0 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lime Green -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #84CC16;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: rgba(132,204,22,0.9);" data-pct="90%"></div>
+            <div class="color-tint" style="background: rgba(132,204,22,0.7);" data-pct="70%"></div>
+            <div class="color-tint" style="background: rgba(132,204,22,0.5);" data-pct="50%"></div>
+            <div class="color-tint" style="background: rgba(132,204,22,0.3);" data-pct="30%"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Summit Lime</div>
+          <div class="color-role">Accent &middot; CTAs &middot; Highlights &middot; Actions</div>
+          <div class="color-values">
+            <span class="color-tag">#84CC16</span>
+            <span class="color-tag">RGB 132 204 22</span>
+            <span class="color-tag">CMYK 47 0 100 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Light Purple -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #8B5CF6;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: rgba(139,92,246,0.9);" data-pct="90%"></div>
+            <div class="color-tint" style="background: rgba(139,92,246,0.7);" data-pct="70%"></div>
+            <div class="color-tint" style="background: rgba(139,92,246,0.5);" data-pct="50%"></div>
+            <div class="color-tint" style="background: rgba(139,92,246,0.3);" data-pct="30%"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Violet</div>
+          <div class="color-role">Extended &middot; Gradients &middot; Data Viz</div>
+          <div class="color-values">
+            <span class="color-tag">#8B5CF6</span>
+            <span class="color-tag">RGB 139 92 246</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Black -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #0a0a0f;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: #111118;" data-pct="900"></div>
+            <div class="color-tint" style="background: #1e1e2a;" data-pct="800"></div>
+            <div class="color-tint" style="background: #2d2d3d;" data-pct="700"></div>
+            <div class="color-tint" style="background: #44446a;" data-pct="600"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Midnight</div>
+          <div class="color-role">Primary Background &middot; Logo "SUMMITS" Text</div>
+          <div class="color-values">
+            <span class="color-tag">#0a0a0f</span>
+            <span class="color-tag">RGB 10 10 15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lime Light -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #A3E635;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: rgba(163,230,53,0.9);" data-pct="90%"></div>
+            <div class="color-tint" style="background: rgba(163,230,53,0.7);" data-pct="70%"></div>
+            <div class="color-tint" style="background: rgba(163,230,53,0.5);" data-pct="50%"></div>
+            <div class="color-tint" style="background: rgba(163,230,53,0.3);" data-pct="30%"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Lime Light</div>
+          <div class="color-role">Hover States &middot; Gradient Endpoint &middot; Emphasis</div>
+          <div class="color-values">
+            <span class="color-tag">#A3E635</span>
+            <span class="color-tag">RGB 163 230 53</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neutral Light -->
+      <div class="color-card">
+        <div class="color-swatch" style="background: #f7f7fb;">
+          <div class="color-swatch-tints">
+            <div class="color-tint" style="background: #eeeff5; border: 1px solid rgba(0,0,0,0.06);" data-pct="100"></div>
+            <div class="color-tint" style="background: #dddde8; border: 1px solid rgba(0,0,0,0.06);" data-pct="200"></div>
+            <div class="color-tint" style="background: #b8b8d0; border: 1px solid rgba(0,0,0,0.06);" data-pct="300"></div>
+            <div class="color-tint" style="background: #9393b0; border: 1px solid rgba(0,0,0,0.06);" data-pct="400"></div>
+          </div>
+        </div>
+        <div class="color-info">
+          <div class="color-name">Cloud</div>
+          <div class="color-role">Light Sections &middot; Cards on Light &middot; Backgrounds</div>
+          <div class="color-values">
+            <span class="color-tag">#f7f7fb</span>
+            <span class="color-tag">RGB 247 247 251</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03. TYPOGRAPHY -->
+  <section class="section section--dark" id="typography">
+    <div class="reveal">
+      <span class="section-label">03 Typography</span>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Space Grotesk commands attention on headlines with its geometric character. Plus Jakarta Sans handles body copy with warmth and clarity. The scale uses CSS clamp() for fluid sizing.</p>
+    </div>
+
+    <div class="type-specimen reveal">
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">clamp(3.5rem, 6vw, 6rem)</span>
+          <span class="weight">Space Grotesk 700</span>
+        </div>
+        <div class="type-sample-display">Display</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">clamp(2.5rem, 4vw, 4rem)</span>
+          <span class="weight">Space Grotesk 700</span>
+        </div>
+        <div class="type-sample-h1">Heading One</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">clamp(1.875rem, 3vw, 2.75rem)</span>
+          <span class="weight">Space Grotesk 600</span>
+        </div>
+        <div class="type-sample-h2">Heading Two — Section Headers</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">clamp(1.375rem, 2vw, 1.75rem)</span>
+          <span class="weight">Space Grotesk 600</span>
+        </div>
+        <div class="type-sample-h3">Heading Three — Card Titles</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">1.25rem</span>
+          <span class="weight">Space Grotesk 600</span>
+        </div>
+        <div class="type-sample-h4">Heading Four — Sub-Headers</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">1.125rem / 1.7 lh</span>
+          <span class="weight">Plus Jakarta Sans 400</span>
+        </div>
+        <div class="type-sample-body-lg">Body Large — Lead paragraphs and prominent copy that introduces summit pages and provides context for the learning experience ahead.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">1rem / 1.65 lh</span>
+          <span class="weight">Plus Jakarta Sans 400</span>
+        </div>
+        <div class="type-sample-body">Body — Standard paragraph text for summit descriptions, speaker bios, and educational content. Optimized for readability on dark backgrounds.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">0.875rem</span>
+          <span class="weight">Plus Jakarta Sans 500</span>
+        </div>
+        <div class="type-sample-sm">Small — Captions, card descriptions, and secondary information</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="size">0.75rem / 0.1em ls</span>
+          <span class="weight">Plus Jakarta Sans 600</span>
+        </div>
+        <div class="type-sample-xs">Extra Small — Labels, Tags, Navigation Items, Badge Text</div>
+      </div>
+    </div>
+
+    <div class="type-pairing reveal">
+      <div class="type-pairing-card">
+        <span class="font-label">Space Grotesk</span>
+        <h3>Summits &amp; Masterclasses For Those Who Love Learning</h3>
+        <p style="margin-top: 1rem; font-style: italic; font-family: var(--font-display); font-weight: 400; font-size: var(--text-h3); color: var(--brand-lime);">for those who love learning!</p>
+      </div>
+      <div class="type-pairing-card">
+        <span class="font-label">Plus Jakarta Sans</span>
+        <h3 style="font-family: var(--font-body); font-weight: 700; font-size: var(--text-h3);">The body typeface in action</h3>
+        <p>Plus Jakarta Sans pairs a modern geometric structure with soft, approachable details. Its open apertures ensure excellent readability on both dark and light backgrounds. Use weight 400 for body, 500 for UI labels, and 600-700 for emphasis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04. BUTTONS -->
+  <section class="section section--darker" id="buttons">
+    <div class="reveal">
+      <span class="section-label">04 Buttons</span>
+      <h2 class="section-title">Button Styles</h2>
+      <p class="section-desc">Five button variants cover every interaction. The lime gradient CTA is reserved for the single most important action on each page — typically "Register Now" or "Join Summit."</p>
+    </div>
+
+    <div class="reveal">
+      <div class="button-row">
+        <div class="button-row-label">Primary Variants</div>
+        <div class="button-grid">
+          <button class="btn btn-primary">Register Now</button>
+          <button class="btn btn-gradient">Join Summit <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+          <button class="btn btn-gradient btn-lg">Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <div class="button-row-label">Secondary & Tertiary</div>
+        <div class="button-grid">
+          <button class="btn btn-secondary">Learn More</button>
+          <button class="btn btn-purple">View Summits</button>
+          <button class="btn btn-ghost">Browse Topics <span class="arrow">&rarr;</span></button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <div class="button-row-label">Sizes</div>
+        <div class="button-grid">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <div class="button-row-label">States</div>
+        <div class="button-grid">
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary" style="background: var(--lime-light); border-color: var(--lime-light); box-shadow: var(--shadow-lime);">Hover</button>
+          <button class="btn btn-primary" style="box-shadow: var(--shadow-focus); outline: none;">Focused</button>
+          <button class="btn btn-disabled" disabled>Disabled</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. CARDS -->
+  <section class="section section--dark" id="cards">
+    <div class="reveal">
+      <span class="section-label">05 Card Components</span>
+      <h2 class="section-title">Cards</h2>
+      <p class="section-desc">Four card patterns handle every content type in the summit ecosystem — from glass effects to speaker cards and testimonials. Hover any card to see interaction states.</p>
+    </div>
+
+    <div class="cards-grid reveal">
+      <!-- Glass Card -->
+      <div class="card-glass-wrapper">
+        <div class="card-glass">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+            <div style="width:40px;height:40px;background:var(--gradient-purple);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Glass Card</div>
+            </div>
+          </div>
+          <h4 style="font-family:var(--font-display);font-size:var(--text-h3);font-weight:700;margin-bottom:0.5rem;">Glass-Morphism Surface</h4>
+          <p style="font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6;">Semi-transparent with backdrop blur. The purple and blue glow behind this card demonstrate the frosted glass effect. Border turns lime on hover.</p>
+        </div>
+      </div>
+
+      <!-- Stat Card -->
+      <div class="card-stat">
+        <div class="stat-value">12K+</div>
+        <div class="stat-label">Summit Attendees Worldwide</div>
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border-subtle);font-size:var(--text-xs);color:var(--text-muted);">Stat card with lime top border accent</div>
+      </div>
+
+      <!-- Summit Card -->
+      <div class="card-summit">
+        <div class="summit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h4>Health &amp; Wellness Summit</h4>
+        <p>A 3-day virtual event featuring 25+ expert speakers on holistic health, nutrition, and mindset transformation.</p>
+        <a href="#" class="learn-more">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+
+      <!-- Testimonial Card -->
+      <div class="card-testimonial">
+        <div class="stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <blockquote>"360Summits made it effortless to connect with world-class speakers. The production quality was incredible and the engagement was off the charts."</blockquote>
+        <div class="author">
+          <div class="author-avatar">GS</div>
+          <div>
+            <div class="author-name">George Shepherd</div>
+            <div class="author-title">Founder, 360Summits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06. GLASSMORPHISM -->
+  <section class="section section--darker" id="glass">
+    <div class="reveal">
+      <span class="section-label">06 Glassmorphism</span>
+      <h2 class="section-title">Glass Effects</h2>
+      <p class="section-desc">Glass-morphism creates depth on the dark canvas. The colored blobs (purple + blue) behind the card demonstrate how blur and opacity interact with layered backgrounds.</p>
+    </div>
+
+    <div class="glass-demo-area reveal">
+      <div class="glass-card-demo">
+        <div style="font-size:var(--text-xs);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--brand-lime);margin-bottom:1rem;">Featured Summit</div>
+        <h3>Glass Surface Card</h3>
+        <p>Hover to see the border shift to lime and the card lift. The backdrop-filter creates the frosted glass effect against the colored shapes behind it.</p>
+        <button class="btn btn-gradient" style="margin-top:0.5rem;">Register Now</button>
+      </div>
+
+      <div class="glass-specs">
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Background</div>
+          <div class="glass-spec-value">rgba(30, 30, 42, 0.45)</div>
+        </div>
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Backdrop Filter</div>
+          <div class="glass-spec-value">blur(16px)</div>
+        </div>
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Border</div>
+          <div class="glass-spec-value">1px solid rgba(255, 255, 255, 0.1)</div>
+        </div>
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Border Hover</div>
+          <div class="glass-spec-value">rgba(132, 204, 22, 0.25)</div>
+        </div>
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Border Radius</div>
+          <div class="glass-spec-value">1.5rem (--radius-xl)</div>
+        </div>
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Hover Transform</div>
+          <div class="glass-spec-value">translateY(-6px)</div>
+        </div>
+        <div class="glass-spec-item">
+          <div class="glass-spec-label">Hover Shadow</div>
+          <div class="glass-spec-value">0 16px 48px rgba(0,0,0,0.3)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07. GRADIENTS -->
+  <section class="section section--dark" id="gradients">
+    <div class="reveal">
+      <span class="section-label">07 Gradients</span>
+      <h2 class="section-title">Gradient System</h2>
+      <p class="section-desc">Five gradient patterns serve different purposes. The lime CTA gradient is the highest-emphasis treatment. The purple-to-violet gradient provides brand-rich backgrounds.</p>
+    </div>
+
+    <div class="gradient-grid reveal">
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(51,3,98,0.4) 0%, #0a0a0f 60%); background-color: #0a0a0f;"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Hero Ambient</div>
+          <div class="gradient-css">radial-gradient(ellipse 80% 50% at 50% -20%, rgba(51,3,98,0.35) 0%, transparent 60%)</div>
+        </div>
+      </div>
+
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background: linear-gradient(135deg, #84CC16 0%, #A3E635 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">CTA / Lime Action</div>
+          <div class="gradient-css">linear-gradient(135deg, #84CC16 0%, #A3E635 100%)</div>
+        </div>
+      </div>
+
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background: linear-gradient(135deg, #330362 0%, #5B1A9E 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Purple / Brand</div>
+          <div class="gradient-css">linear-gradient(135deg, #330362 0%, #5B1A9E 100%)</div>
+        </div>
+      </div>
+
+      <div class="gradient-card">
+        <div class="gradient-preview" style="background: linear-gradient(135deg, #040ECF 0%, #818CF8 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Blue / Info</div>
+          <div class="gradient-css">linear-gradient(135deg, #040ECF 0%, #818CF8 100%)</div>
+        </div>
+      </div>
+
+      <div class="gradient-card" style="grid-column: span 2;">
+        <div class="gradient-preview" style="background: linear-gradient(135deg, #330362 0%, #040ECF 50%, #84CC16 100%);"></div>
+        <div class="gradient-info">
+          <div class="gradient-name">Summit Spectrum (Hero Use Only)</div>
+          <div class="gradient-css">linear-gradient(135deg, #330362 0%, #040ECF 50%, #84CC16 100%)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08. SPACING & GRID -->
+  <section class="section section--darker" id="spacing">
+    <div class="reveal">
+      <span class="section-label">08 Spacing & Grid</span>
+      <h2 class="section-title">Spatial System</h2>
+      <p class="section-desc">Consistent spacing creates rhythm. The section spacing uses clamp() to scale fluidly from mobile to desktop without breakpoint overrides.</p>
+    </div>
+
+    <div class="spacing-scale reveal">
+      <div class="spacing-row">
+        <span class="spacing-label">--space-section</span>
+        <div class="spacing-bar" style="width: 80%;"><span>clamp(5rem, 10vw, 8rem)</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--space-component</span>
+        <div class="spacing-bar" style="width: 50%;"><span>clamp(2rem, 4vw, 4rem)</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--space-element</span>
+        <div class="spacing-bar" style="width: 25%;"><span>clamp(1rem, 2vw, 1.5rem)</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--spacing-xl / 2rem</span>
+        <div class="spacing-bar" style="width: 20%;"><span>32px</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--spacing-lg / 1.5rem</span>
+        <div class="spacing-bar" style="width: 15%;"><span>24px</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--spacing-md / 1rem</span>
+        <div class="spacing-bar" style="width: 10%;"><span>16px</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--spacing-sm / 0.5rem</span>
+        <div class="spacing-bar" style="width: 5%;"><span>8px</span></div>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-label">--spacing-xs / 0.25rem</span>
+        <div class="spacing-bar" style="width: 2.5%;"><span>4px</span></div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div style="font-size:var(--text-sm);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem;">12-Column Grid</div>
+      <div class="grid-demo">
+        <div class="grid-col">1</div>
+        <div class="grid-col">2</div>
+        <div class="grid-col">3</div>
+        <div class="grid-col">4</div>
+        <div class="grid-col">5</div>
+        <div class="grid-col">6</div>
+        <div class="grid-col">7</div>
+        <div class="grid-col">8</div>
+        <div class="grid-col">9</div>
+        <div class="grid-col">10</div>
+        <div class="grid-col">11</div>
+        <div class="grid-col">12</div>
+      </div>
+      <div class="grid-overlay">
+        <div class="grid-span grid-span-7">7 col — Content</div>
+        <div class="grid-span grid-span-5">5 col — Media</div>
+      </div>
+      <div class="grid-overlay">
+        <div class="grid-span grid-span-4">4 col</div>
+        <div class="grid-span grid-span-4">4 col</div>
+        <div class="grid-span grid-span-4">4 col</div>
+      </div>
+      <div class="grid-overlay">
+        <div class="grid-span grid-span-8">8 col — Wide content</div>
+        <div class="grid-span grid-span-4">4 col — Sidebar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09. ICONS -->
+  <section class="section section--dark" id="icons">
+    <div class="reveal">
+      <span class="section-label">09 Iconography</span>
+      <h2 class="section-title">Icon System</h2>
+      <p class="section-desc">Consistent stroke-based icons at 2px weight. On hover, icons transition to lime green. Recommended library: Lucide Icons (matching the clean, geometric brand aesthetic).</p>
+    </div>
+
+    <div class="icon-grid reveal">
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>Play</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Speakers</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Schedule</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>Learn</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Email</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Check</span>
+      </div>
+    </div>
+
+    <div class="icon-sizes reveal">
+      <div class="icon-size-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>16px</span>
+      </div>
+      <div class="icon-size-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>20px</span>
+      </div>
+      <div class="icon-size-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>24px</span>
+      </div>
+      <div class="icon-size-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>32px</span>
+      </div>
+      <div class="icon-size-item">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <span>48px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. DARK VS LIGHT -->
+  <section class="section section--darker" id="themes" style="padding-bottom: 0;">
+    <div class="reveal">
+      <span class="section-label">10 Dark vs Light</span>
+      <h2 class="section-title">Theme Modes</h2>
+      <p class="section-desc">The dark theme is the default brand experience. Light sections break visual monotony and work well for content-heavy areas like speaker bios and summit schedules.</p>
+    </div>
+
+    <div class="theme-comparison reveal" style="margin-top: var(--space-component);">
+      <div class="theme-panel theme-panel--dark">
+        <span class="theme-badge">Dark Theme</span>
+        <h3>Learn from the World's Best Experts</h3>
+        <p>360Summits hosts virtual events that connect passionate learners with industry-leading speakers. Health, business, marketing, and personal growth — all from the comfort of home.</p>
+        <button class="btn-demo">Join Summit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <div style="margin-top:1.5rem;display:flex;gap:1rem;">
+          <span class="color-tag" style="font-size:10px;">text: #f0f0f8</span>
+          <span class="color-tag" style="font-size:10px;">body: #b8b8d0</span>
+        </div>
+      </div>
+      <div class="theme-panel theme-panel--light">
+        <span class="theme-badge">Light Theme</span>
+        <h3>Learn from the World's Best Experts</h3>
+        <p>360Summits hosts virtual events that connect passionate learners with industry-leading speakers. Health, business, marketing, and personal growth — all from the comfort of home.</p>
+        <button class="btn-demo">Join Summit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <div style="margin-top:1.5rem;display:flex;gap:1rem;">
+          <span style="display:inline-flex;padding:0.2rem 0.6rem;background:rgba(51,3,98,0.06);border-radius:var(--radius-sm);font-size:10px;font-family:monospace;color:var(--text-body-dark);">text: #111118</span>
+          <span style="display:inline-flex;padding:0.2rem 0.6rem;background:rgba(51,3,98,0.06);border-radius:var(--radius-sm);font-size:10px;font-family:monospace;color:var(--text-body-dark);">body: #44446a</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. FORMS -->
+  <section class="section section--dark" id="forms">
+    <div class="reveal">
+      <span class="section-label">11 Form Elements</span>
+      <h2 class="section-title">Form Components</h2>
+      <p class="section-desc">Form inputs use elevated backgrounds with lime focus rings. Click any input to see the focus state.</p>
+    </div>
+
+    <div class="form-grid reveal">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" placeholder="George Shepherd">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="george@360summits.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" placeholder="(714) 436-1234">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Interest Area</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select your interest</option>
+          <option>Health &amp; Wellness</option>
+          <option>Business &amp; Marketing</option>
+          <option>Personal Growth</option>
+          <option>Lifestyle</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group" style="grid-column: span 2;">
+        <label class="form-label">Summit Topics</label>
+        <div class="form-checkbox-group">
+          <label class="form-checkbox-label"><input type="checkbox" checked><span>Health</span></label>
+          <label class="form-checkbox-label"><input type="checkbox"><span>Business</span></label>
+          <label class="form-checkbox-label"><input type="checkbox" checked><span>Wellness</span></label>
+          <label class="form-checkbox-label"><input type="checkbox"><span>Marketing</span></label>
+          <label class="form-checkbox-label"><input type="checkbox"><span>Personal Growth</span></label>
+        </div>
+      </div>
+      <div class="form-group" style="grid-column: span 2;">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us about your summit idea or what you'd like to learn..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Error State Example</label>
+        <input type="email" class="form-input form-input--error" value="invalid-email">
+        <span class="form-error">Please enter a valid email address</span>
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button class="btn btn-gradient btn-lg" style="width:100%;">Submit Request <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. SHADOWS -->
+  <section class="section section--darker" id="shadows">
+    <div class="reveal">
+      <span class="section-label">12 Shadow System</span>
+      <h2 class="section-title">Shadows & Elevation</h2>
+      <p class="section-desc">Dark backgrounds require deeper shadows. Standard box shadows disappear on dark surfaces — use deeper blacks and lime-tinted accents for hover states.</p>
+    </div>
+
+    <div class="shadow-grid reveal">
+      <div class="shadow-card" style="box-shadow: var(--shadow-card);">
+        <div class="shadow-name">Card</div>
+        <div class="shadow-value">0 4px 24px<br>rgba(0,0,0,0.4)</div>
+      </div>
+      <div class="shadow-card" style="box-shadow: var(--shadow-card-hover);">
+        <div class="shadow-name">Card Hover</div>
+        <div class="shadow-value">0 8px 40px rgba(0,0,0,0.5),<br>0 0 0 1px rgba(132,204,22,0.15)</div>
+      </div>
+      <div class="shadow-card" style="box-shadow: var(--shadow-lime);">
+        <div class="shadow-name">Lime Glow</div>
+        <div class="shadow-value">0 4px 20px<br>rgba(132,204,22,0.25)</div>
+      </div>
+      <div class="shadow-card" style="box-shadow: var(--shadow-focus);">
+        <div class="shadow-name">Focus Ring</div>
+        <div class="shadow-value">0 0 0 3px<br>rgba(132,204,22,0.4)</div>
+      </div>
+    </div>
+
+    <!-- Border Radius -->
+    <div class="reveal" style="margin-top: var(--space-component); padding-top: var(--space-component); border-top: 1px solid var(--border-subtle);">
+      <div style="font-size:var(--text-sm);font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1.5rem;">Border Radius Scale</div>
+      <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-end;">
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);margin-bottom:0.5rem;"></div>
+          <span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-muted);">sm / 6px</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-md);margin-bottom:0.5rem;"></div>
+          <span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-muted);">md / 10px</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);margin-bottom:0.5rem;"></div>
+          <span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-muted);">lg / 16px</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);margin-bottom:0.5rem;"></div>
+          <span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-muted);">xl / 24px</span>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:60px;height:60px;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-full);margin-bottom:0.5rem;"></div>
+          <span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-muted);">full / pill</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="margin-top: var(--space-section); padding-top: 2rem; border-top: 1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <img src="assets/logo-horizontal.svg" alt="360Summits" style="height:36px;width:auto;margin-bottom:0.25rem;">
+        <div style="font-size:var(--text-xs);color:var(--text-muted);">Brand Identity System v1.0 &middot; March 2026</div>
+      </div>
+      <div style="font-size:var(--text-xs);color:var(--text-muted);text-align:right;">
+        <div>For Those Who Love Learning</div>
+        <div style="margin-top:0.25rem;">360Summits. All rights reserved.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
+     SCROLL REVEAL & NAV HIGHLIGHT SCRIPT
+     ═══════════════════════════════════════════ -->
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '-40px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(section => navObserver.observe(section));
+</script>
+
+</body>
+</html>

@@ -1,26 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-purple: #330362;
+  --brand-blue: #040ECF;
+  --brand-lime: #84CC16;
+  --purple-light: #5B1A9E;
+  --purple-lighter: #8B5CF6;
+  --lime-light: #A3E635;
+  --lime-dark: #65A30D;
+  --neutral-950: #0a0a0f;
+  --neutral-900: #111118;
+  --neutral-800: #1e1e2a;
+  --neutral-50: #f7f7fb;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-purple: #330362;
+  --color-brand-blue: #040ECF;
+  --color-brand-lime: #84CC16;
+  --color-purple-light: #5B1A9E;
+  --color-purple-lighter: #8B5CF6;
+  --color-purple-muted: #A78BFA;
+  --color-blue-light: #3B49E8;
+  --color-blue-lighter: #818CF8;
+  --color-lime-light: #A3E635;
+  --color-lime-dark: #65A30D;
+  --color-neutral-950: #0a0a0f;
+  --color-neutral-900: #111118;
+  --color-neutral-800: #1e1e2a;
+  --color-neutral-700: #2d2d3d;
+  --color-neutral-600: #44446a;
+  --color-neutral-500: #6b6b8d;
+  --color-neutral-400: #9393b0;
+  --color-neutral-300: #b8b8d0;
+  --color-neutral-200: #dddde8;
+  --color-neutral-100: #eeeff5;
+  --color-neutral-50: #f7f7fb;
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-plus-jakarta-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background: var(--color-neutral-950);
+  color: #f0f0f8;
+}
+
+::selection {
+  background: rgba(132, 204, 22, 0.3);
+  color: #fff;
 }
