@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GradientDivider from "@/components/GradientDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,29 +15,29 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-const forAttendees = [
-  { step: "01", title: "Browse & Register", description: "Explore upcoming summits by topic. Register for free to get access to live sessions — no credit card required." },
-  { step: "02", title: "Watch Live Sessions", description: "Tune in during the event to watch expert presentations. Each session is available for 24-48 hours after airing." },
-  { step: "03", title: "Engage & Connect", description: "Ask questions during live Q&A, connect with speakers and fellow attendees, and join our learning community." },
-  { step: "04", title: "Upgrade for Lifetime Access", description: "Want to rewatch at your own pace? Grab the All-Access Pass for lifetime replays, bonuses, and exclusive resources." },
+const ourProcess = [
+  { step: "01", emoji: "🎯", title: "Strategy & Discovery", description: "We start with a deep-dive into your expertise, audience, and goals. Together we define your summit topic, speaker lineup, and monetization strategy.", highlight: "Free strategy call", bg: "bg-pastel-cream", pill: "bg-pill-yellow" },
+  { step: "02", emoji: "🎨", title: "Production & Design", description: "Our team builds everything — custom landing pages, registration flows, email sequences, and all the technical infrastructure your summit needs.", highlight: "Done in ~3 weeks", bg: "bg-pastel-mint", pill: "bg-pill-mint" },
+  { step: "03", emoji: "🤝", title: "Speaker & JV Recruitment", description: "We recruit and coordinate speakers, manage joint venture partners, and set up affiliate tracking so your launch has maximum reach.", highlight: "200+ speakers managed", bg: "bg-pastel-lavender", pill: "bg-pill-lavender" },
+  { step: "04", emoji: "🚀", title: "Launch & Promotion", description: "From email marketing to social campaigns and JV partner promotions, we drive registrations and build anticipation for your event.", highlight: "8–15K avg. registrations", bg: "bg-pastel-pink", pill: "bg-pill-pink" },
+  { step: "05", emoji: "🎬", title: "Live Event Execution", description: "We manage the entire live broadcast — speaker scheduling, Q&A moderation, technical support, and real-time attendee engagement.", highlight: "Full production team", bg: "bg-pastel-sky", pill: "bg-pill-sky" },
+  { step: "06", emoji: "💰", title: "Turn Replays Into Revenue", description: "All-Access Pass sales, replay funnels, upsell sequences, and ongoing email nurture to maximize your summit's revenue long after it ends.", highlight: "$500K+ generated", bg: "bg-pastel-cream", pill: "bg-pill-yellow" },
 ];
 
-const forHosts = [
-  { step: "01", title: "Strategy & Planning", description: "We work with you to define your summit topic, target audience, speaker lineup, and monetization strategy." },
-  { step: "02", title: "Production & Design", description: "Our team handles web design, landing pages, email sequences, and all the technical production work." },
-  { step: "03", title: "Speaker & JV Management", description: "We coordinate with speakers, manage joint venture partners, and handle affiliate tracking and commissions." },
-  { step: "04", title: "Launch & Promotion", description: "From email marketing to social campaigns, we drive registrations and ensure maximum attendance." },
-  { step: "05", title: "Live Event Execution", description: "We manage the entire live event — broadcasting, Q&A moderation, technical support, and attendee engagement." },
-  { step: "06", title: "Post-Summit Monetization", description: "All-Access Pass sales, replay funnels, upsells, and ongoing email nurture sequences to maximize ROI." },
+const whyItWorks = [
+  { title: "Grow Your List Fast", description: "Our clients add 1,500-3,000+ subscribers per summit — targeted, engaged people who opted in because of your topic.", emoji: "📈" },
+  { title: "Position as the Authority", description: "When you host 15-25 experts, your audience sees you as the connector. One summit built more credibility than 2 years of content.", emoji: "👑" },
+  { title: "Generate Revenue", description: "All-Access Passes, sponsor slots, and back-end offers. Most clients see positive ROI within the first 48 hours of launch.", emoji: "💰" },
+  { title: "Build Partnerships", description: "Every speaker becomes a JV partner who promotes to their list. One summit creates relationships that drive revenue for years.", emoji: "🤝" },
 ];
 
 const services = [
-  { title: "Summit Production", description: "End-to-end virtual event production with professional quality.", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
-  { title: "Web Design & Funnels", description: "Custom landing pages, registration flows, and sales funnels.", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
-  { title: "Email Marketing", description: "Automated sequences for registration, engagement, and sales.", icon: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6" },
-  { title: "JV/Affiliate Management", description: "Partner recruitment, tracking, commissions, and relationship management.", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 110 8 4 4 0 010-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" },
-  { title: "Content Strategy", description: "Topic curation, speaker prep, and session structure optimization.", icon: "M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" },
-  { title: "Analytics & Reporting", description: "Registration tracking, engagement metrics, and revenue reporting.", icon: "M18 20V10M12 20V4M6 20v-6" },
+  { id: "build", title: "Summit Production", description: "End-to-end virtual event production with professional quality.", bg: "bg-pastel-lavender", pill: "bg-pill-lavender", emoji: "🎬", highlight: "50+ produced" },
+  { id: "build", title: "Web Design & Funnels", description: "Custom landing pages, registration flows, and sales funnels.", bg: "bg-pastel-cream", pill: "bg-pill-yellow", emoji: "🖥️", highlight: "Avg. 12% conversion" },
+  { id: "promote", title: "Email Marketing", description: "Automated sequences for registration, engagement, and sales.", bg: "bg-pastel-pink", pill: "bg-pill-pink", emoji: "📧", highlight: "30+ sequences built" },
+  { id: "speakers", title: "JV/Affiliate Management", description: "Partner recruitment, tracking, commissions, and relationship management.", bg: "bg-pastel-mint", pill: "bg-pill-mint", emoji: "🤝", highlight: "200+ partners managed" },
+  { id: "strategy", title: "Content Strategy", description: "Topic curation, speaker prep, and session structure optimization.", bg: "bg-pastel-sky", pill: "bg-pill-sky", emoji: "🧠", highlight: "Proven frameworks" },
+  { id: "monetize", title: "Analytics & Reporting", description: "Registration tracking, engagement metrics, and revenue reporting.", bg: "bg-pastel-lavender", pill: "bg-pill-lavender", emoji: "📊", highlight: "Real-time dashboards" },
 ];
 
 export default function HowItWorksContent() {
@@ -52,14 +54,21 @@ export default function HowItWorksContent() {
       heroTl
         .to("[data-page-hero='eyebrow']", { y: 0, opacity: 1, duration: 0.5 })
         .to("[data-page-hero='heading']", { y: 0, opacity: 1, duration: 0.7 }, "-=0.3")
-        .to("[data-page-hero='sub']", { y: 0, opacity: 1, duration: 0.6 }, "-=0.35");
+        .to("[data-page-hero='sub']", { y: 0, opacity: 1, duration: 0.6 }, "-=0.35")
+        .to("[data-page-hero='image']", { y: 0, opacity: 1, duration: 0.9 }, "-=0.4");
+
+      ctx.querySelectorAll("[data-float]").forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -10 : 10, rotation: i % 2 === 0 ? 4 : -4,
+          duration: 2.5 + i * 0.3, ease: "sine.inOut", repeat: -1, yoyo: true,
+        });
+      });
 
       ctx.querySelectorAll("[data-reveal]").forEach((el) => {
         const delay = parseFloat((el as HTMLElement).dataset.revealDelay || "0");
         gsap.set(el, { y: 32, opacity: 0 });
         gsap.to(el, {
-          y: 0, opacity: 1, duration: 0.8, delay,
-          ease: "power2.out",
+          y: 0, opacity: 1, duration: 0.8, delay, ease: "power2.out",
           scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
         });
       });
@@ -82,89 +91,144 @@ export default function HowItWorksContent() {
 
   return (
     <main ref={mainRef} className="pt-20">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-purple-wash to-warm-white py-24">
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <p data-page-hero="eyebrow" className="mb-4 font-body text-sm font-medium uppercase tracking-widest text-purple-light">
-            The Process
-          </p>
-          <h1 data-page-hero="heading" className="mb-6 font-display text-5xl font-bold text-brand-purple md:text-6xl">
-            How It Works
-          </h1>
-          <p data-page-hero="sub" className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600">
-            Whether you&apos;re an attendee looking to learn or a host wanting
-            to create a summit — here&apos;s how 360Summits makes it happen.
-          </p>
+      {/* Hero — Split with production image */}
+      <section className="relative overflow-hidden bg-pastel-cream py-20 lg:py-28">
+        {/* Geometric decorative shapes */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-28 -left-28 h-[400px] w-[400px] rounded-full bg-pill-yellow/30 blur-3xl" />
+          <div className="absolute -bottom-20 -right-20 h-[350px] w-[350px] rounded-full bg-pill-lavender/20 blur-3xl" />
+          <div data-float className="absolute top-[15%] right-[6%] h-3 w-3 rounded-full bg-purple-lighter/40" />
+          <div data-float className="absolute bottom-[20%] left-[4%] h-2 w-2 rounded-full bg-pill-mint/60" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <span data-page-hero="eyebrow" className="mb-4 inline-block rounded-full bg-pill-lavender px-4 py-1.5 text-xs font-semibold text-purple-light">
+                Our process
+              </span>
+              <h1 data-page-hero="heading" className="mt-4 font-display text-5xl font-bold text-slate-900 md:text-6xl">
+                We handle everything. You show up and shine.
+              </h1>
+              <p data-page-hero="sub" className="mt-6 max-w-lg text-lg leading-relaxed text-slate-500">
+                From strategy to post-summit monetization, our team manages every
+                detail so you can focus on delivering your message.
+              </p>
+            </div>
+            <div data-page-hero="image" className="relative overflow-hidden rounded-[1.5rem] shadow-2xl ring-1 ring-slate-900/[0.04]">
+              <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-pill-lavender/40 via-transparent to-pill-yellow/30 blur-sm" />
+              <Image
+                src="/images/production-setup.png"
+                alt="Professional virtual summit production studio"
+                width={960}
+                height={540}
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* For Attendees */}
-      <section className="bg-warm-ivory py-28">
+      <GradientDivider variant="brand" />
+
+      {/* Why Summits Work */}
+      <section className="bg-white py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center" data-reveal>
-            <p className="mb-3 font-body text-sm font-medium uppercase tracking-widest text-purple-light">For Attendees</p>
-            <h2 className="font-display text-4xl font-bold text-brand-purple">Join a Summit</h2>
+            <span className="mb-4 inline-block rounded-full bg-pill-yellow px-4 py-1.5 text-xs font-semibold text-yellow-800">
+              The opportunity
+            </span>
+            <h2 className="mt-4 font-display text-4xl font-bold text-slate-900 md:text-5xl">
+              Why virtual summits work
+            </h2>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-4" data-stagger-group>
-            {forAttendees.map((item) => (
-              <div key={item.step} className="text-center" data-stagger-item>
-                <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-purple font-display text-lg font-bold text-white">
-                  {item.step}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-stagger-group>
+            {whyItWorks.map((item) => (
+              <div key={item.title} data-stagger-item className="group relative overflow-hidden rounded-[1.5rem] bg-pastel-cream p-6 transition-all hover:shadow-lg">
+                <span className="pointer-events-none absolute -right-2 -bottom-2 text-[5rem] leading-none opacity-[0.07] transition-transform duration-500 group-hover:scale-110">{item.emoji}</span>
+                <div className="relative z-10">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm" data-emoji>{item.emoji}</div>
+                  <h3 className="mb-2 font-display text-lg font-bold text-slate-900">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-500">{item.description}</p>
                 </div>
-                <h3 className="mb-2 font-display text-lg font-bold text-brand-purple">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-slate-500">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* For Hosts */}
-      <section className="py-28">
+      {/* 6-Step Process — Alternating image/content */}
+      <section className="bg-pastel-lavender py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center" data-reveal>
-            <p className="mb-3 font-body text-sm font-medium uppercase tracking-widest text-purple-light">For Summit Hosts</p>
-            <h2 className="font-display text-4xl font-bold text-brand-purple">Host a Summit</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-              We handle everything from A to Z, so you can focus on your content and your audience.
+            <span className="mb-4 inline-block rounded-full bg-pill-lavender px-4 py-1.5 text-xs font-semibold text-purple-light">
+              Step by step
+            </span>
+            <h2 className="mt-4 font-display text-4xl font-bold text-slate-900 md:text-5xl">
+              Our proven 6-step process
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-slate-500">
+              Refined across 50+ summits to maximize your reach and revenue.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-stagger-group>
-            {forHosts.map((item) => (
-              <div key={item.step} data-stagger-item className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-tint font-display text-sm font-bold text-purple-light">
-                    {item.step}
-                  </span>
-                  <h3 className="font-display text-lg font-bold text-brand-purple">{item.title}</h3>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3" data-stagger-group>
+            {ourProcess.map((item) => (
+              <div key={item.step} data-stagger-item className={`group relative overflow-hidden rounded-[1.5rem] ${item.bg} p-7 transition-all hover:shadow-lg`}>
+                <span className="pointer-events-none absolute -right-3 -bottom-3 text-[6rem] leading-none opacity-[0.07] transition-transform duration-500 group-hover:scale-110">{item.emoji}</span>
+                <div className="relative z-10">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm" data-emoji>{item.emoji}</div>
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 font-display text-xs font-bold text-white">{item.step}</span>
+                  </div>
+                  <h3 className="mb-2 font-display text-lg font-bold text-slate-900">{item.title}</h3>
+                  <p className="mb-4 text-sm leading-relaxed text-slate-500">{item.description}</p>
+                  <span className={`inline-flex rounded-full ${item.pill} px-3 py-1.5 text-xs font-semibold text-slate-700`}>{item.highlight}</span>
                 </div>
-                <p className="text-sm leading-relaxed text-slate-500">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section className="bg-warm-ivory py-28">
+      <GradientDivider variant="lime" />
+
+      {/* Full-width image break */}
+      <section className="relative h-[40vh] min-h-[320px] overflow-hidden">
+        <Image
+          src="/images/team-collaboration.png"
+          alt="Team collaboration during summit planning"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
+      </section>
+
+      {/* Full-Service Production */}
+      <section className="bg-white py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-12" data-reveal>
-            <h2 className="mb-2 font-display text-4xl font-bold text-brand-purple">What We Handle</h2>
-            <p className="text-lg text-slate-600">Full-service summit production from start to finish.</p>
+            <span className="mb-4 inline-block rounded-full bg-pill-mint px-4 py-1.5 text-xs font-semibold text-green-800">
+              Full service
+            </span>
+            <h2 className="mt-4 font-display text-4xl font-bold text-slate-900">Every piece, handled by us</h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-stagger-group>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3" data-stagger-group>
             {services.map((service) => (
-              <div key={service.title} data-stagger-item className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-tint">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B1A9E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={service.icon} />
-                  </svg>
+              <div key={service.title} id={service.id} data-stagger-item className={`group relative overflow-hidden rounded-[1.5rem] ${service.bg} p-8 transition-all hover:shadow-lg scroll-mt-24`}>
+                <span className="pointer-events-none absolute -right-4 -bottom-4 text-[7rem] leading-none opacity-[0.08] transition-transform duration-500 group-hover:scale-110">{service.emoji}</span>
+                <div className="relative z-10">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm" data-emoji>{service.emoji}</div>
+                  <h3 className="mb-2 font-display text-xl font-bold text-slate-900">{service.title}</h3>
+                  <p className="mb-5 text-sm leading-relaxed text-slate-600">{service.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className={`inline-flex rounded-full ${service.pill} px-3 py-1.5 text-xs font-semibold text-slate-700`}>{service.highlight}</span>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 transition-all group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900">→</span>
+                  </div>
                 </div>
-                <h3 className="mb-2 font-display text-lg font-bold text-brand-purple">{service.title}</h3>
-                <p className="text-sm leading-relaxed text-slate-500">{service.description}</p>
               </div>
             ))}
           </div>
@@ -172,18 +236,18 @@ export default function HowItWorksContent() {
       </section>
 
       {/* CTA */}
-      <section className="bg-brand-purple py-24">
-        <div className="mx-auto max-w-3xl px-6 text-center" data-reveal>
-          <h2 className="mb-6 font-display text-4xl font-bold text-white">Ready to Launch Your Summit?</h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-white/70">
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src="/images/virtual-event-studio.png" alt="Virtual summit production studio" fill className="object-cover" />
+          <div className="absolute inset-0 bg-slate-900/80" />
+        </div>
+        <div className="relative z-10 mx-auto max-w-3xl px-6 py-28 text-center" data-reveal>
+          <h2 className="mb-6 font-display text-4xl font-bold text-white md:text-5xl">Ready to launch your summit?</h2>
+          <p className="mx-auto mb-10 max-w-xl text-lg text-white/60">
             Let&apos;s discuss your vision. We&apos;ll create a custom plan to bring your summit to life.
           </p>
-          <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl bg-brand-lime px-8 py-4 font-body text-base font-semibold text-brand-purple transition-all hover:shadow-lg hover:shadow-brand-lime/20">
-            Schedule a Call
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+          <Link href="/contact" className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-body text-base font-semibold text-slate-900 transition-all hover:bg-slate-100 hover:shadow-lg">
+            Book a Discovery Call →
           </Link>
         </div>
       </section>

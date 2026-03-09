@@ -20,38 +20,90 @@
   --color-purple-muted: #A78BFA;
   --color-purple-tint: #F0EBFF;
   --color-purple-wash: #F8F5FF;
-  --color-blue-light: #3B49E8;
-  --color-blue-lighter: #818CF8;
-  --color-lime-light: #A3E635;
-  --color-lime-dark: #65A30D;
-  --color-warm-white: #FAFAF8;
-  --color-warm-cream: #F5F3F0;
+
+  /* Pastel section backgrounds */
+  --color-pastel-cream: #FFF9EE;
+  --color-pastel-lavender: #F3EEFF;
+  --color-pastel-pink: #FFF0F3;
+  --color-pastel-mint: #EEFFF5;
+  --color-pastel-sky: #EEF6FF;
+
+  /* Pill/badge accent colors */
+  --color-pill-yellow: #FFF2CC;
+  --color-pill-lavender: #E8DEFF;
+  --color-pill-pink: #FFD9E2;
+  --color-pill-mint: #D1FADF;
+  --color-pill-sky: #D1ECFF;
+
+  /* Pill text colors (legible on pill backgrounds) */
+  --color-green-800: #166534;
+  --color-yellow-800: #854D0E;
+  --color-pink-800: #9D174D;
+  --color-blue-800: #1E40AF;
+
+  --color-warm-white: #FEFDFB;
+  --color-warm-cream: #FFF9EE;
   --color-warm-ivory: #F5F3FF;
-  --color-slate-900: #1a1a2e;
-  --color-slate-800: #2d2b3d;
-  --color-slate-700: #44415a;
-  --color-slate-600: #5f5b76;
-  --color-slate-500: #7c7893;
-  --color-slate-400: #9e9ab2;
-  --color-slate-300: #c2bfd2;
-  --color-slate-200: #e0dee8;
-  --color-slate-100: #efedf5;
-  --color-slate-50: #f7f6fb;
-  --font-display: var(--font-playfair-display);
-  --font-body: var(--font-dm-sans);
+
+  --color-slate-900: #1A1A1A;
+  --color-slate-800: #2D2D2D;
+  --color-slate-700: #444444;
+  --color-slate-600: #666666;
+  --color-slate-500: #888888;
+  --color-slate-400: #AAAAAA;
+  --color-slate-300: #D0D0D0;
+  --color-slate-200: #E8E8E8;
+  --color-slate-100: #F3F3F3;
+  --color-slate-50: #F9F9F9;
+
+  --font-display: europa, system-ui, sans-serif;
+  --font-body: var(--font-inter);
+
+  --radius-pill: 9999px;
+  --radius-card: 1.25rem;
+  --radius-card-lg: 1.5rem;
 }
 
 html {
   scroll-behavior: smooth;
+  cursor: url('/cursors/arrow-default.svg') 4 2, auto;
 }
 
 body {
   font-family: var(--font-body);
   background: var(--color-warm-white);
-  color: #3D3D3D;
+  color: #444444;
+}
+
+a, button, [role="button"], input[type="submit"], select, label[for],
+.cursor-pointer {
+  cursor: url('/cursors/arrow-pointer.svg') 12 4, pointer;
 }
 
 ::selection {
-  background: rgba(51, 3, 98, 0.15);
+  background: rgba(51, 3, 98, 0.12);
   color: #1A0133;
+}
+
+/* Force color emoji rendering across all platforms */
+[data-emoji] {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes gradient-shimmer {
+  0% { background-position: -100% 0%; }
+  100% { background-position: 100% 0%; }
 }

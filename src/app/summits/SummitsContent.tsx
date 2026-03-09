@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GradientDivider from "@/components/GradientDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,74 +15,68 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-const summits = [
+const caseStudies = [
   {
-    title: "Health & Wellness Summit 2026",
-    description:
-      "A 3-day deep dive into holistic health, functional nutrition, biohacking, and mindset transformation with 25+ world-class speakers.",
-    category: "Health",
+    title: "Health & Wellness Summit 2025",
+    result: "12,400+ registrations",
+    host: "Dr. Karen Walsh — Functional Nutritionist",
+    description: "A 3-day summit with 25 speakers covering gut health, hormone balance, and longevity. Generated $42K in All-Access Pass revenue and added 12,400 registrants to Dr. Walsh's ecosystem.",
     speakers: 25,
     days: 3,
-    status: "Upcoming",
-    date: "April 15-17, 2026",
+    listGrowth: "12,400",
+    revenue: "$42K",
+    bg: "bg-pastel-mint",
+    pill: "bg-pill-mint",
+    image: "/images/case-wellness.png",
   },
   {
     title: "Entrepreneur Mastery Summit",
-    description:
-      "Strategies for scaling your business from 6 to 7 figures. Marketing automation, sales funnels, and team building from founders who've done it.",
-    category: "Business",
+    result: "9,800+ registrations",
+    host: "David Chen — Business Strategist",
+    description: "A 2-day intensive on scaling from 6 to 7 figures. 20 speakers and JV partnerships drove 65% of registrations. David made back his investment in the first 48 hours.",
     speakers: 20,
     days: 2,
-    status: "Upcoming",
-    date: "May 8-9, 2026",
-  },
-  {
-    title: "Personal Growth Masterclass",
-    description:
-      "Unlock your potential with proven frameworks for productivity, emotional intelligence, and goal achievement from top performance coaches.",
-    category: "Growth",
-    speakers: 15,
-    days: 1,
-    status: "Upcoming",
-    date: "June 1, 2026",
-  },
-  {
-    title: "Nutrition Revolution Summit",
-    description:
-      "The latest research in gut health, plant-based nutrition, anti-inflammatory diets, and metabolic optimization from leading nutritionists.",
-    category: "Nutrition",
-    speakers: 18,
-    days: 2,
-    status: "Coming Soon",
-    date: "July 2026",
-  },
-  {
-    title: "Digital Marketing Mastery",
-    description:
-      "Master social media, content strategy, email marketing, and paid advertising with actionable frameworks from top digital marketers.",
-    category: "Marketing",
-    speakers: 22,
-    days: 3,
-    status: "Coming Soon",
-    date: "August 2026",
+    listGrowth: "9,800",
+    revenue: "$38K",
+    bg: "bg-pastel-cream",
+    pill: "bg-pill-yellow",
+    image: "/images/case-entrepreneur.png",
   },
   {
     title: "Mindset & Meditation Summit",
-    description:
-      "Transform your mental health through meditation, breathwork, neuroscience-backed mindfulness, and stress resilience techniques.",
-    category: "Wellness",
+    result: "8,200+ registrations",
+    host: "Rachel Torres — Wellness Practitioner",
+    description: "12 expert speakers on breathwork, neuroscience-backed mindfulness, and stress resilience. Rachel's audience grew by 8,200 engaged registrants in a single week.",
     speakers: 12,
     days: 2,
-    status: "Coming Soon",
-    date: "September 2026",
+    listGrowth: "8,200",
+    revenue: "$28K",
+    bg: "bg-pastel-lavender",
+    pill: "bg-pill-lavender",
+    image: "/images/case-mindset.png",
   },
 ];
 
-const pastSummits = [
-  { title: "Wellness Warriors Summit", attendees: "2,500+", speakers: 20 },
-  { title: "Launch Your Business Masterclass", attendees: "1,800+", speakers: 15 },
-  { title: "Holistic Health Breakthrough", attendees: "3,200+", speakers: 25 },
-  { title: "Coaching Mastery Summit", attendees: "1,500+", speakers: 18 },
+const summitStats = [
+  { value: "50+", label: "Summits Produced" },
+  { value: "200+", label: "Speakers Managed" },
+  { value: "1M+", label: "Total Registrations" },
+  { value: "$500K+", label: "Client Revenue Generated" },
+];
+
+const industries = [
+  { topic: "Health & Wellness", bg: "bg-pill-mint", text: "text-green-800" },
+  { topic: "Business & Marketing", bg: "bg-pill-yellow", text: "text-yellow-800" },
+  { topic: "Personal Growth", bg: "bg-pill-lavender", text: "text-purple-light" },
+  { topic: "Nutrition", bg: "bg-pill-pink", text: "text-pink-800" },
+  { topic: "Mindset", bg: "bg-pill-sky", text: "text-blue-800" },
+  { topic: "Entrepreneurship", bg: "bg-pill-yellow", text: "text-yellow-800" },
+  { topic: "Lifestyle", bg: "bg-pill-pink", text: "text-pink-800" },
+  { topic: "Holistic Health", bg: "bg-pill-mint", text: "text-green-800" },
+  { topic: "Digital Marketing", bg: "bg-pill-lavender", text: "text-purple-light" },
+  { topic: "Financial Freedom", bg: "bg-pill-yellow", text: "text-yellow-800" },
+  { topic: "Leadership", bg: "bg-pill-sky", text: "text-blue-800" },
+  { topic: "Coaching", bg: "bg-pill-pink", text: "text-pink-800" },
 ];
 
 export default function SummitsContent() {
@@ -99,12 +95,19 @@ export default function SummitsContent() {
         .to("[data-page-hero='heading']", { y: 0, opacity: 1, duration: 0.7 }, "-=0.3")
         .to("[data-page-hero='sub']", { y: 0, opacity: 1, duration: 0.6 }, "-=0.35");
 
+      ctx.querySelectorAll("[data-float]").forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -10 : 10,
+          rotation: i % 2 === 0 ? 4 : -4,
+          duration: 2.5 + i * 0.3, ease: "sine.inOut", repeat: -1, yoyo: true,
+        });
+      });
+
       ctx.querySelectorAll("[data-reveal]").forEach((el) => {
         const delay = parseFloat((el as HTMLElement).dataset.revealDelay || "0");
         gsap.set(el, { y: 32, opacity: 0 });
         gsap.to(el, {
-          y: 0, opacity: 1, duration: 0.8, delay,
-          ease: "power2.out",
+          y: 0, opacity: 1, duration: 0.8, delay, ease: "power2.out",
           scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
         });
       });
@@ -128,161 +131,169 @@ export default function SummitsContent() {
   return (
     <main ref={mainRef} className="pt-20">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-purple-wash to-warm-white py-24">
+      <section className="relative overflow-hidden bg-pastel-lavender py-24">
+        {/* Geometric decorative shapes */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-28 -right-28 h-[400px] w-[400px] rounded-full bg-pill-lavender/40 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 h-[350px] w-[350px] rounded-full bg-pill-sky/25 blur-3xl" />
+          <div data-float className="absolute top-[20%] right-[7%] h-3 w-3 rounded-full bg-purple-lighter/40" />
+          <div data-float className="absolute bottom-[18%] left-[5%] h-2 w-2 rounded-full bg-blue-800/20" />
+        </div>
+
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <p
-            data-page-hero="eyebrow"
-            className="mb-4 font-body text-sm font-medium uppercase tracking-widest text-purple-light"
-          >
-            Virtual Events
-          </p>
-          <h1
-            data-page-hero="heading"
-            className="mb-6 font-display text-5xl font-bold text-brand-purple md:text-6xl"
-          >
-            Summits &amp; Masterclasses
+          <span data-page-hero="eyebrow" className="mb-4 inline-block rounded-full bg-pill-lavender px-4 py-1.5 text-xs font-semibold text-purple-light">
+            Our track record
+          </span>
+          <h1 data-page-hero="heading" className="mt-4 font-display text-5xl font-bold text-slate-900 md:text-6xl">
+            Every summit we produce delivers real, measurable results.
           </h1>
-          <p
-            data-page-hero="sub"
-            className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600"
-          >
-            Discover transformative virtual events featuring world-class
-            speakers, actionable content, and a community of passionate learners.
+          <p data-page-hero="sub" className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-500">
+            List growth, revenue, and authority — all from a single event.
+            Here&apos;s the proof from our clients.
           </p>
         </div>
       </section>
 
-      {/* Upcoming Summits */}
-      <section className="bg-warm-ivory py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-12" data-reveal>
-            <h2 className="mb-2 font-display text-4xl font-bold text-brand-purple">
-              Register Now
-            </h2>
-            <p className="text-lg text-slate-600">
-              Browse upcoming events and save your spot.
-            </p>
-          </div>
+      <GradientDivider variant="brand" />
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" data-stagger-group>
-            {summits.map((summit) => (
-              <div
-                key={summit.title}
-                data-stagger-item
-                className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-purple-muted/40"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="inline-flex rounded-full bg-purple-tint px-3 py-1 text-xs font-semibold text-purple-light">
-                    {summit.category}
-                  </span>
-                  <span
-                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                      summit.status === "Upcoming"
-                        ? "bg-green-50 text-green-700"
-                        : "bg-slate-100 text-slate-500"
-                    }`}
-                  >
-                    {summit.status}
-                  </span>
+      {/* Stats Bar */}
+      <section className="border-y border-slate-200 bg-white py-10">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4" data-stagger-group>
+            {summitStats.map((stat) => (
+              <div key={stat.label} data-stagger-item className="text-center">
+                <div className="font-display text-3xl font-bold text-slate-900 md:text-4xl">
+                  {stat.value}
                 </div>
-
-                <h3 className="mb-3 font-display text-xl font-bold text-brand-purple">
-                  {summit.title}
-                </h3>
-                <p className="mb-6 flex-1 text-sm leading-relaxed text-slate-500">
-                  {summit.description}
-                </p>
-
-                <div className="mb-4 flex items-center gap-4 border-t border-slate-100 pt-4 text-xs text-slate-400">
-                  <span className="flex items-center gap-1.5">
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                    {summit.date}
-                  </span>
-                  <span>{summit.speakers} speakers</span>
-                  <span>
-                    {summit.days} day{summit.days > 1 ? "s" : ""}
-                  </span>
-                </div>
-
-                <button className="w-full rounded-xl bg-brand-purple py-3 font-body text-sm font-semibold text-white transition-all hover:bg-purple-light">
-                  Register Free
-                </button>
+                <div className="mt-1 text-sm text-slate-400">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Past Summits */}
-      <section className="py-24">
+      {/* Case Studies */}
+      <section className="bg-white py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-12" data-reveal>
-            <h2 className="mb-2 font-display text-4xl font-bold text-brand-purple">
-              Past Summits
+            <span className="mb-4 inline-block rounded-full bg-pill-mint px-4 py-1.5 text-xs font-semibold text-green-800">
+              Case studies
+            </span>
+            <h2 className="mt-4 font-display text-4xl font-bold text-slate-900">
+              Real summits, real numbers
             </h2>
-            <p className="text-lg text-slate-600">
-              A track record of successful events and happy learners.
+            <p className="mt-2 text-lg text-slate-500">
+              See how our clients used virtual summits to grow their businesses.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-4" data-stagger-group>
-            {pastSummits.map((summit) => (
+          <div className="space-y-8" data-stagger-group>
+            {caseStudies.map((study, i) => (
               <div
-                key={summit.title}
+                key={study.title}
                 data-stagger-item
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                className={`overflow-hidden rounded-[1.5rem] border border-slate-100 bg-white shadow-sm transition-all hover:shadow-md`}
               >
-                <h3 className="mb-4 font-display text-lg font-bold text-brand-purple">
-                  {summit.title}
-                </h3>
-                <div className="flex justify-between text-sm text-slate-500">
-                  <span>{summit.attendees} attendees</span>
-                  <span>{summit.speakers} speakers</span>
+                <div className={`grid items-center gap-0 md:grid-cols-5 ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}>
+                  <div className="aspect-[4/3] overflow-hidden md:col-span-2 md:aspect-auto md:h-full">
+                    <Image
+                      src={study.image}
+                      alt={study.host}
+                      width={600}
+                      height={450}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className={`p-8 md:col-span-3 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
+                    <div className="mb-4 flex flex-wrap items-center gap-2">
+                      <span className={`inline-flex rounded-full ${study.pill} px-3 py-1 text-xs font-semibold text-slate-700`}>
+                        {study.title}
+                      </span>
+                      <span className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-semibold text-green-700 border border-green-200">
+                        {study.result}
+                      </span>
+                    </div>
+                    <h3 className="mb-1 font-display text-xl font-bold text-slate-900">
+                      {study.host}
+                    </h3>
+                    <p className="mb-6 text-sm leading-relaxed text-slate-500">
+                      {study.description}
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                      {[
+                        { label: "Speakers", val: study.speakers },
+                        { label: "Days", val: study.days },
+                        { label: "List Growth", val: `+${study.listGrowth}` },
+                        { label: "Revenue", val: study.revenue },
+                      ].map((m) => (
+                        <div key={m.label} className="rounded-xl bg-slate-50 px-4 py-2.5 text-center">
+                          <div className="font-display text-lg font-bold text-slate-900">{m.val}</div>
+                          <div className="text-xs text-slate-400">{m.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Industries */}
+      <section className="bg-pastel-cream py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-12 text-center" data-reveal>
+            <span className="mb-4 inline-block rounded-full bg-pill-yellow px-4 py-1.5 text-xs font-semibold text-yellow-800">
+              Industries we serve
+            </span>
+            <h2 className="mt-4 font-display text-4xl font-bold text-slate-900">
+              Summits across every niche
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-3" data-stagger-group>
+            {industries.map((item) => (
+              <span
+                key={item.topic}
+                data-stagger-item
+                className={`rounded-full ${item.bg} ${item.text} px-5 py-2.5 text-sm font-semibold transition-all hover:shadow-sm`}
+              >
+                {item.topic}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <GradientDivider variant="cool" />
+
+      {/* Full-width image break */}
+      <section className="relative h-[40vh] min-h-[320px] overflow-hidden">
+        <Image
+          src="/images/summit-broadcast.png"
+          alt="Live virtual summit broadcast in a professional studio"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
       </section>
 
       {/* CTA */}
-      <section className="bg-brand-purple py-24">
+      <section className="bg-slate-900 py-24">
         <div className="mx-auto max-w-3xl px-6 text-center" data-reveal>
           <h2 className="mb-6 font-display text-4xl font-bold text-white">
-            Want to Speak at a Summit?
+            Your summit could be next
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-white/70">
-            We&apos;re always looking for experts to share their knowledge.
-            Apply to speak at an upcoming event.
+          <p className="mx-auto mb-10 max-w-xl text-lg text-white/60">
+            Tell us about your expertise, your audience, and your goals.
+            We&apos;ll show you exactly how a summit can grow your business.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-lime px-8 py-4 font-body text-base font-semibold text-brand-purple transition-all hover:shadow-lg hover:shadow-brand-lime/20"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-body text-base font-semibold text-slate-900 transition-all hover:bg-slate-100 hover:shadow-lg"
           >
-            Apply to Speak
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            Book a Discovery Call →
           </Link>
         </div>
       </section>
