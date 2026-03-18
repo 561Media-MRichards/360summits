@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GradientDivider from "@/components/GradientDivider";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,9 +92,8 @@ export default function AboutContent() {
             with tiny audiences — and we knew we could change that.
           </p>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* Who We Are */}
       <section className="bg-white py-24">
@@ -224,7 +223,7 @@ export default function AboutContent() {
       </section>
 
       {/* Industries */}
-      <section className="bg-white py-24">
+      <section className="relative bg-white py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-12 text-center" data-reveal>
             <span className="mb-4 inline-block rounded-full bg-pill-yellow px-4 py-1.5 text-xs font-semibold text-yellow-800">
@@ -260,9 +259,8 @@ export default function AboutContent() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-900/20" />
       </section>
-
-      <GradientDivider variant="cool" />
 
       {/* Full-width image break */}
       <section className="relative h-[40vh] min-h-[320px] overflow-hidden">

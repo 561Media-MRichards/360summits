@@ -6,8 +6,6 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GradientDivider from "@/components/GradientDivider";
-
 gsap.registerPlugin(ScrollTrigger);
 
 function prefersReducedMotion(): boolean {
@@ -166,7 +164,7 @@ export default function HomeContent() {
   return (
     <main ref={mainRef}>
       {/* Hero — Split layout with image */}
-      <section className="relative min-h-screen overflow-hidden bg-pastel-cream pt-28 pb-20">
+      <section className="relative overflow-hidden bg-pastel-cream pt-28 pb-20">
         {/* Geometric decorative shapes */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-32 -right-32 h-[500px] w-[500px] rounded-full bg-pill-lavender/30 blur-3xl" />
@@ -288,9 +286,9 @@ export default function HomeContent() {
             </div>
           </div>
         </div>
+        {/* Soft gradient bleed into next section */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* Logos / Social proof strip */}
       <section className="border-y border-slate-200 bg-white py-10">
@@ -318,7 +316,7 @@ export default function HomeContent() {
       </section>
 
       {/* Past Events Logo Strip */}
-      <section className="bg-pastel-cream py-16 overflow-hidden">
+      <section className="relative bg-pastel-cream py-16 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6">
           <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
             Summits & events we&apos;ve produced
@@ -377,12 +375,11 @@ export default function HomeContent() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
 
-      <GradientDivider variant="cool" />
-
       {/* Who It's For — Image cards */}
-      <section className="bg-white py-28">
+      <section className="relative bg-white py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center" data-reveal>
             <span className="mb-4 inline-block rounded-full bg-pill-lavender px-4 py-1.5 text-xs font-semibold text-purple-light">
@@ -447,9 +444,8 @@ export default function HomeContent() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-900/20" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* Production showcase — Full width image + overlay */}
       <section className="relative overflow-hidden">
@@ -494,10 +490,9 @@ export default function HomeContent() {
         </div>
       </section>
 
-      <GradientDivider variant="lime" />
-
       {/* How We Work — Process */}
-      <section className="bg-pastel-lavender py-28">
+      <section className="relative bg-pastel-lavender py-28">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-slate-900/15 to-transparent" />
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid items-start gap-16 lg:grid-cols-2">
             <div>
@@ -704,7 +699,7 @@ export default function HomeContent() {
       </section>
 
       {/* Testimonials — With photos */}
-      <section className="bg-pastel-cream py-28">
+      <section className="relative bg-pastel-cream py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center" data-reveal>
             <span className="mb-4 inline-block rounded-full bg-pill-lavender px-4 py-1.5 text-xs font-semibold text-purple-light">
@@ -773,9 +768,8 @@ export default function HomeContent() {
             </div>
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-900/20" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* CTA — With background image */}
       <section className="relative overflow-hidden">

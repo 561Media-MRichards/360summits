@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GradientDivider from "@/components/GradientDivider";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -170,9 +170,8 @@ export default function ForAuthorsContent() {
             </div>
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
-
-      <GradientDivider variant="cool" />
 
       {/* Pain Points */}
       <section className="bg-white py-24">
@@ -332,7 +331,7 @@ export default function ForAuthorsContent() {
       </section>
 
       {/* Also For */}
-      <section className="bg-white py-16">
+      <section className="relative bg-white py-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="mb-6 text-sm font-semibold uppercase tracking-wider text-slate-400">Also built for</p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -344,9 +343,8 @@ export default function ForAuthorsContent() {
             </Link>
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-900/20" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* CTA */}
       <section className="bg-slate-900 py-24">

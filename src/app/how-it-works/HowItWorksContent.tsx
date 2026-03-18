@@ -6,7 +6,6 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GradientDivider from "@/components/GradientDivider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -128,9 +127,8 @@ export default function HowItWorksContent() {
             </div>
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* Why Summits Work */}
       <section className="bg-white py-28">
@@ -160,7 +158,7 @@ export default function HowItWorksContent() {
       </section>
 
       {/* 6-Step Process — Alternating image/content */}
-      <section className="bg-pastel-lavender py-28">
+      <section className="relative bg-pastel-lavender py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-16 text-center" data-reveal>
             <span className="mb-4 inline-block rounded-full bg-pill-lavender px-4 py-1.5 text-xs font-semibold text-purple-light">
@@ -191,9 +189,8 @@ export default function HowItWorksContent() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-900/20" />
       </section>
-
-      <GradientDivider variant="lime" />
 
       {/* Full-width image break */}
       <section className="relative h-[40vh] min-h-[320px] overflow-hidden">

@@ -103,7 +103,45 @@ a, button, [role="button"], input[type="submit"], select, label[for],
   animation-play-state: paused;
 }
 
-@keyframes gradient-shimmer {
-  0% { background-position: -100% 0%; }
-  100% { background-position: 100% 0%; }
+/* Pricing page range sliders */
+.pricing-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: #E8E8E8;
+  outline: none;
+}
+
+.pricing-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #330362;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: url('/cursors/arrow-pointer.svg') 12 4, pointer;
+  transition: transform 0.15s ease;
+}
+
+.pricing-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.pricing-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #330362;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: url('/cursors/arrow-pointer.svg') 12 4, pointer;
+}
+
+.pricing-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: #E8E8E8;
 }

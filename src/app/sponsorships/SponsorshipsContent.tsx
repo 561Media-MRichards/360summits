@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GradientDivider from "@/components/GradientDivider";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -271,9 +271,8 @@ export default function SponsorshipsContent() {
             <span className="text-sm text-slate-400">Packages from $10K</span>
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
-
-      <GradientDivider variant="cool" />
 
       {/* Stats bar */}
       <section className="border-y border-slate-200 bg-white py-10">
@@ -529,7 +528,7 @@ export default function SponsorshipsContent() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-white py-24">
+      <section className="relative bg-white py-24">
         <div className="mx-auto max-w-3xl px-6">
           <div className="mb-14 text-center" data-reveal>
             <span className="mb-4 inline-block rounded-full bg-pill-sky px-4 py-1.5 text-xs font-semibold text-blue-800">
@@ -549,9 +548,8 @@ export default function SponsorshipsContent() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-900/20" />
       </section>
-
-      <GradientDivider variant="brand" />
 
       {/* Final CTA */}
       <section className="bg-slate-900 py-24">

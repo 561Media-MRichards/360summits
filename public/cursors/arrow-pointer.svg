@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="32" viewBox="0 0 28 32" fill="none">
+  <!-- Custom pointer cursor — arrow with circle accent -->
+  <g filter="url(#s)">
+    <path d="M4 2L4 22L9.5 16.5L14 24L17.5 22L13 14.5L20 13L4 2Z" fill="#330362"/>
+    <path d="M4 2L4 22L9.5 16.5L14 24L17.5 22L13 14.5L20 13L4 2Z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+    <!-- Animated-feel accent circle -->
+    <circle cx="21" cy="7" r="5" fill="#040ECF" opacity="0.9"/>
+    <circle cx="21" cy="7" r="5" stroke="white" stroke-width="1.5"/>
+    <!-- Inner dot -->
+    <circle cx="21" cy="7" r="1.8" fill="white"/>
+  </g>
+  <defs>
+    <filter id="s" x="0" y="0" width="30" height="32" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0.5" dy="1" stdDeviation="0.8" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>

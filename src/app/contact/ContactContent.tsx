@@ -5,7 +5,7 @@ import type { FormEvent } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GradientDivider from "@/components/GradientDivider";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -112,9 +112,8 @@ export default function ContactContent() {
             exactly how we&apos;d bring your summit to life.
           </p>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-white" />
       </section>
-
-      <GradientDivider variant="warm" />
 
       {/* Contact Form & Info */}
       <section className="bg-white py-24">
