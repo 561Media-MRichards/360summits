@@ -21,16 +21,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  @page {
-    size: landscape;
-    margin: 0;
-  }
-
-  @media print {
-    .slide { page-break-after: always; page-break-inside: avoid; }
-    .slide:last-child { page-break-after: auto; }
-    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
+  html, body { overflow: hidden; height: 100%; }
 
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -39,15 +30,25 @@
     line-height: 1.5;
   }
 
+  /* ── Slideshow engine ── */
+  .deck { position: relative; width: 100vw; height: 100vh; }
+
   .slide {
-    width: 100vw;
-    min-height: 100vh;
+    position: absolute;
+    inset: 0;
     padding: 60px 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+    overflow-y: auto;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .slide::before {
@@ -63,6 +64,84 @@
 
   .slide > * { position: relative; z-index: 1; }
 
+  /* ── Navigation ── */
+  .nav-controls {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 8px 20px;
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-btn:hover { color: var(--lime); background: rgba(255,255,255,0.06); }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+  .nav-btn:disabled:hover { color: rgba(255,255,255,0.5); background: none; }
+
+  .nav-counter {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.1em;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .nav-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+  }
+
+  .nav-dot.active { background: var(--lime); box-shadow: 0 0 8px rgba(132,204,22,0.5); }
+  .nav-dot:hover { background: rgba(255,255,255,0.3); }
+
+  /* ── Logo ── */
+  .logo-bar {
+    position: fixed;
+    top: 24px;
+    left: 32px;
+    z-index: 100;
+  }
+
+  .logo-bar svg {
+    height: 24px;
+    width: auto;
+  }
+
+  .logo-bar svg path { fill: rgba(255,255,255,0.7); }
+
+  /* ── Slide number ── */
   .slide-number {
     position: absolute;
     bottom: 30px;
@@ -73,37 +152,7 @@
     letter-spacing: 0.1em;
   }
 
-  .logo-bar {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 2;
-  }
-
-  .logo-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--purple), var(--blue));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: white;
-  }
-
-  .logo-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    color: rgba(255,255,255,0.6);
-  }
-
+  /* ── Typography ── */
   h1 {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
@@ -159,33 +208,18 @@
     margin-top: 24px;
   }
 
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
+  /* ── Grids ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px; }
 
-  .grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 28px;
-  }
-
-  .grid-4 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 24px;
-  }
-
+  /* ── Cards ── */
   .card {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 16px;
     padding: 32px;
-    transition: border-color 0.3s;
   }
-
-  .card:hover { border-color: rgba(132,204,22,0.3); }
 
   .card-featured {
     border-color: var(--lime);
@@ -221,10 +255,7 @@
     margin-top: 8px;
   }
 
-  .feature-list {
-    list-style: none;
-    padding: 0;
-  }
+  .feature-list { list-style: none; padding: 0; }
 
   .feature-list li {
     padding: 8px 0;
@@ -260,6 +291,7 @@
     margin: 24px 0;
   }
 
+  /* ── Speakers ── */
   .speaker-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -275,8 +307,8 @@
   }
 
   .speaker-avatar {
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--purple-light), var(--blue));
     margin: 0 auto 8px;
@@ -287,21 +319,17 @@
     font-weight: 600;
     font-size: 18px;
     color: rgba(255,255,255,0.8);
+    overflow: hidden;
   }
 
-  .speaker-name {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.2;
+  .speaker-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .speaker-title {
-    font-size: 9px;
-    color: rgba(255,255,255,0.35);
-    margin-top: 2px;
-    line-height: 1.2;
-  }
+  .speaker-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.85); line-height: 1.2; }
+  .speaker-title { font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 2px; line-height: 1.2; }
 
   .topic-tag {
     display: inline-block;
@@ -315,12 +343,8 @@
     margin: 4px;
   }
 
-  .process-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 24px 0;
-  }
+  /* ── Process ── */
+  .process-step { display: flex; align-items: flex-start; gap: 20px; padding: 24px 0; }
 
   .step-num {
     font-family: 'Space Grotesk', sans-serif;
@@ -332,6 +356,7 @@
     width: 70px;
   }
 
+  /* ── Comparison ── */
   .comparison-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -339,16 +364,8 @@
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
-  .comparison-cell {
-    padding: 16px 24px;
-    font-size: 15px;
-    color: rgba(255,255,255,0.65);
-  }
-
-  .comparison-cell:first-child {
-    font-weight: 600;
-    color: rgba(255,255,255,0.85);
-  }
+  .comparison-cell { padding: 16px 24px; font-size: 15px; color: rgba(255,255,255,0.65); }
+  .comparison-cell:first-child { font-weight: 600; color: rgba(255,255,255,0.85); }
 
   .comparison-header .comparison-cell {
     font-weight: 700;
@@ -360,10 +377,9 @@
     padding-bottom: 12px;
   }
 
-  .comparison-header .comparison-cell:last-child {
-    color: var(--lime);
-  }
+  .comparison-header .comparison-cell:last-child { color: var(--lime); }
 
+  /* ── CTA ── */
   .cta-box {
     text-align: center;
     padding: 48px;
@@ -396,28 +412,80 @@
 
   .text-muted { color: rgba(255,255,255,0.5); }
   .text-sm { font-size: 14px; }
-  .mt-16 { margin-top: 16px; }
-  .mt-24 { margin-top: 24px; }
-  .mt-32 { margin-top: 32px; }
-  .mt-48 { margin-top: 48px; }
+  .fw-600 { font-weight: 600; }
   .mb-8 { margin-bottom: 8px; }
   .mb-16 { margin-bottom: 16px; }
-  .mb-24 { margin-bottom: 24px; }
-  .fw-600 { font-weight: 600; }
-  .text-center { text-align: center; }
+
+  /* ── Keyboard hint ── */
+  .keyboard-hint {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 100;
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .keyboard-hint kbd {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    font-size: 11px;
+    margin: 0 2px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  /* Print overrides */
+  @page { size: landscape; margin: 0; }
+
+  @media print {
+    html, body { overflow: visible; height: auto; }
+    .slide { position: relative; opacity: 1; pointer-events: auto; page-break-after: always; page-break-inside: avoid; min-height: 100vh; }
+    .slide:last-child { page-break-after: auto; }
+    .nav-controls, .keyboard-hint { display: none; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ============================================ -->
-<!-- SLIDE 1: TITLE -->
-<!-- ============================================ -->
-<div class="slide" style="justify-content: center; text-align: center;">
-  <div class="logo-bar" style="left: 50%; transform: translateX(-50%); top: 50px;">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
+<!-- ── Logo (fixed) ── -->
+<div class="logo-bar">
+  <svg width="200" height="32" viewBox="0 0 2000 321" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M123.736 33.4947C126.604 32.9491 133.855 33.3194 136.746 33.6522C154.094 35.7436 169.889 44.6689 180.622 58.4459C191.565 72.2071 196.61 89.737 194.656 107.204C192.792 122.986 186.346 133.013 174.21 142.613C199.957 155.42 209.13 172.163 212.496 200.211C214.421 163.47 233.738 140.218 253.165 110.633L300.487 38.4296C317.413 38.1089 335.307 38.4157 352.309 38.4296L298.279 121.185C359.331 114.447 395.581 174.829 377.629 229.268C370.612 251.014 355.15 269.034 334.714 279.288C311.935 290.678 289.922 290.014 266.379 282.204C232.118 266.835 216.901 243.267 212.699 206.477C211.563 225.663 207.884 240.316 195.785 255.984C182.138 273.335 162.154 284.561 140.226 287.196C101.544 292.181 65.0488 271.516 51.2024 234.791C47.8542 225.909 46.8895 218.434 45.7086 209.141L90.0501 209.019C94.2791 242.867 132.433 258.651 156.515 234.753C164.159 227.223 168.444 216.932 168.4 206.206C168.42 173.169 139.616 165.802 112.448 165.903L112.503 124.119C122.71 124.236 130.227 124.254 139.522 119.318C151.321 113.053 154.631 96.9767 148.015 85.6838C144.978 80.4855 139.974 76.7284 134.131 75.2605C117.913 71.105 110.685 84.4869 107.433 97.5605L63.0882 97.5293C68.7104 59.4772 84.3856 39.2065 123.736 33.4947ZM304.02 244.611C326.655 240.971 342.079 219.724 338.513 197.098C334.946 174.471 313.734 158.989 291.075 162.475C268.306 165.977 252.718 187.295 256.302 210.032C259.885 232.768 281.276 248.269 304.02 244.611Z" fill="white"/>
+    <path d="M1218.2 37.0341L1261.88 37.0466C1263.1 117.594 1261.91 201.221 1261.91 282.023L1232.32 282.003L1232.47 108.789L1232.81 75.2844C1210.5 142.223 1189.43 214.318 1168.35 282.029L1137.5 282.015C1130.86 258.453 1122.06 232.178 1114.7 208.556L1073.26 75.9371C1072.63 143.721 1073.75 213.934 1073.7 282.024L1044 282.016L1043.98 37.0554L1088.15 37.0527L1153.28 244.55C1175.62 176.478 1196.61 105.573 1218.2 37.0341Z" fill="white"/>
+    <path d="M1466.18 37.0341L1509.88 37.0464C1511.04 118.641 1509.92 200.41 1509.92 282.023L1480.34 282.003L1480.49 111.472C1480.53 99.4183 1480.63 87.3658 1480.8 75.3137C1458.72 143.436 1437.69 213.537 1416.38 282.029L1385.51 282.015C1379.63 260.365 1370.72 234.318 1363.96 212.606L1321.29 75.9118C1320.73 143.927 1321.71 213.8 1321.67 282.024L1292.02 282.009L1292 37.0555L1336.16 37.0526L1401.3 244.542L1466.18 37.0341Z" fill="white"/>
+    <path d="M459.693 33.5383C474.237 32.2106 488.874 34.7372 502.129 40.8632C524.219 50.9553 536.431 66.3366 544.661 88.5215L525.606 100.102C509.402 92.6147 481.508 76.2999 465.567 75.0148C457.04 74.3273 445.458 80.1422 439.005 86.3411C421.874 102.795 429.477 147.636 427.956 171.097C428.486 192.158 424.165 219.917 440.288 236.236C453.342 249.448 479.769 248.952 492.241 236.505C508.786 219.993 504.13 177.779 504.01 155.139C510.996 164.891 517.903 175.022 524.782 184.877L526.388 184.87C533.683 175.471 541.126 164.534 548.068 154.762C550.398 213.403 552.809 275.398 478.094 287.197C443.896 292.599 408.369 275.229 392.031 244.373C379.967 221.587 385.053 189.849 383.915 164.818C383.946 145.06 382.09 113.948 386.062 94.9236C388.421 83.3605 393.418 72.4969 400.664 63.1777C415.71 44.0066 436.397 36.3349 459.693 33.5383Z" fill="white"/>
+    <path d="M1853.83 30.6391C1854.13 30.5853 1854.42 30.5418 1854.73 30.5087C1875.9 28.2563 1908.84 34.5484 1924.7 48.6635C1944.74 66.4985 1947.87 84.2403 1950.29 108.795L1921.2 108.877C1919.11 75.3653 1895.87 58.1066 1863.13 59.0965C1848.3 59.5453 1833.12 62.2747 1822.72 73.3365C1811.61 85.3868 1807.97 111.813 1821.37 123.563C1827.57 129.342 1834.75 131.108 1842.54 133.556C1871.63 142.686 1915.28 145.061 1938.04 166.16C1963.35 189.635 1961.92 239.68 1938.33 263.644C1919.7 282.569 1892.74 288.269 1867.01 288.71C1866.57 288.719 1866.13 288.726 1865.68 288.728C1810.47 288.978 1775.57 259.256 1775.44 202.831L1804.36 202.815C1804.47 205.635 1804.65 208.451 1804.88 211.263C1806.17 225.243 1812.12 237.878 1822.87 246.634C1852.27 270.515 1934.09 264.989 1925.99 212.211C1924.97 197.861 1916.6 189.875 1904.35 184.076C1864.47 165.077 1787.59 172.952 1783.34 113.72C1779.9 65.8377 1806.46 35.0525 1853.83 30.6391Z" fill="white"/>
+    <path d="M706.726 30.6499C707.498 30.5858 708.271 30.5323 709.045 30.4894C764.1 27.392 799.755 51.1114 802.999 108.787L774.168 108.857C770.689 74.0688 750.593 58.9106 715.781 59.0543C687.276 59.172 665.168 72.4439 665.574 103.592C665.936 131.4 698.331 133.636 718.681 139.164C761.38 149.522 806.452 154.267 809.268 209.381C812.118 265.183 770.871 287.356 721.177 288.711C720.657 288.725 720.138 288.735 719.618 288.739C663.794 289.214 628.873 260.062 628.539 202.816L657.182 202.814C657.216 204.311 657.307 205.806 657.452 207.297C661.224 249.582 691.701 262.19 730.072 259.782C757.635 258.052 783.687 242.623 779.242 212.246C772.252 164.473 684.123 178.101 654.78 149.983C643.413 139.091 637.61 130.081 636.355 114.237C633.069 65.455 659.353 35.0961 706.726 30.6499Z" fill="white"/>
+    <path d="M981.357 37.0454L1011.88 37.0199L1011.93 66.8343L1012.01 156.083C1012.02 194.441 1016.61 234.625 986.797 264.387C966.287 284.413 939.653 289.832 912.213 288.346C862.574 285.658 833.269 250.19 833.006 201.634C832.917 185.145 832.978 168.289 832.98 151.781L833.01 37.0556L863.625 37.0403C863.847 47.6183 863.696 58.3337 863.696 68.9293C863.698 104.036 863.769 139.195 863.644 174.295C863.557 198.43 863.223 225.788 881.448 244.266C901.474 264.57 943.693 263.802 963.679 243.636C977.012 230.222 981.035 210.166 981.309 191.86C981.533 176.249 981.328 160.54 981.328 144.915L981.357 37.0454Z" fill="white"/>
+    <path d="M1587.26 37.0743C1648.75 36.0716 1710.44 37.05 1771.96 37.0452C1772.16 46.8668 1772.01 56.7181 1772.02 66.5431C1746.38 66.4212 1720.74 66.4806 1695.11 66.7211V204.406L1695.09 282.02L1664.21 282.002L1664.17 66.5887C1638.54 66.2675 1612.84 66.5683 1587.21 66.5646L1587.26 37.0743Z" fill="white"/>
+    <path d="M1545.85 37.079L1576.38 37.0471L1576.37 282.01L1545.88 282.001C1545.05 200.394 1545.86 118.696 1545.85 37.079Z" fill="white"/>
+    <path d="M593.649 34.9288C600.869 35.9901 603.601 37.6838 603.672 45.2284C603.841 62.9888 603.78 80.7496 603.77 98.5109L603.792 197.033L603.799 253.539C603.796 262.855 604.07 273.079 603.329 282.355C603.146 284.644 599.738 286.874 597.821 288.319C591.104 287.317 588.024 285.956 587.947 278.55C587.775 261.987 587.853 245.423 587.866 228.857L587.834 137.257L587.816 74.6754C587.816 63.9173 587.62 52.7113 588.122 41.9593C588.263 38.945 591.285 36.8754 593.649 34.9288Z" fill="white"/>
+    <path d="M525.509 115.554C540.582 107.938 555.925 100.785 571.137 93.4434L549.388 132.089L525.564 173.696C510.681 147.594 497.001 120.638 482.848 94.1232C497.228 99.0953 511.957 108.519 525.509 115.554Z" fill="white"/>
+  </svg>
+</div>
 
+<!-- ── Keyboard hint ── -->
+<div class="keyboard-hint">
+  <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or click arrows
+</div>
+
+<!-- ── Navigation ── -->
+<div class="nav-controls">
+  <button class="nav-btn" id="prev-btn" onclick="goSlide(current-1)">&larr;</button>
+  <div class="nav-dots" id="nav-dots"></div>
+  <span class="nav-counter" id="nav-counter">1 / 12</span>
+  <button class="nav-btn" id="next-btn" onclick="goSlide(current+1)">&rarr;</button>
+</div>
+
+<!-- ── SLIDES ── -->
+<div class="deck">
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide active" style="justify-content: center; text-align: center;">
   <div>
     <div class="eyebrow">Sponsorship Opportunity</div>
     <h1>
@@ -440,23 +508,13 @@
       </div>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">01 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 2: THE OPPORTUNITY -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">The Opportunity</div>
   <h2>The biohacking market is<br><span class="lime">exploding</span></h2>
-
   <div class="grid-2" style="margin-top: 16px;">
     <div>
       <p style="font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 500px;">
@@ -485,23 +543,13 @@
       </div>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">02 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 3: EVENT OVERVIEW -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Event Overview</div>
   <h2>BioHacker Live 2026</h2>
-
   <div class="grid-3">
     <div class="card">
       <h3 class="lime">What</h3>
@@ -524,7 +572,6 @@
       </p>
     </div>
   </div>
-
   <div style="margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
     <span class="topic-tag">Sleep Optimization</span>
     <span class="topic-tag">Nootropics</span>
@@ -537,247 +584,128 @@
     <span class="topic-tag">Peptides</span>
     <span class="topic-tag">Gut Health</span>
     <span class="topic-tag">Breathwork</span>
-    <span class="topic-tag">Stress & Recovery</span>
+    <span class="topic-tag">Stress &amp; Recovery</span>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">03 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 4: TRACK RECORD -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Our Track Record</div>
-  <h2>Proven results across <span class="lime">50+ summits</span></h2>
-
+  <h2>We don't guess. We <span class="lime">deliver.</span></h2>
   <div class="grid-4" style="margin-top: 16px;">
     <div class="card" style="text-align: center;">
       <div class="stat-big lime-gradient">50+</div>
-      <div class="stat-label">Summits Produced</div>
-    </div>
-    <div class="card" style="text-align: center;">
-      <div class="stat-big lime-gradient">200+</div>
-      <div class="stat-label">Speakers Managed</div>
+      <div class="stat-label">Virtual Summits Produced</div>
     </div>
     <div class="card" style="text-align: center;">
       <div class="stat-big lime-gradient">1M+</div>
-      <div class="stat-label">Total Registrations</div>
+      <div class="stat-label">Total Registrants Driven</div>
     </div>
     <div class="card" style="text-align: center;">
-      <div class="stat-big lime-gradient">$500K+</div>
-      <div class="stat-label">Client Revenue Generated</div>
+      <div class="stat-big lime-gradient">40%+</div>
+      <div class="stat-label">Avg. Sponsor Email Open Rate</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="stat-big lime-gradient">3x</div>
+      <div class="stat-label">Avg. Sponsor ROI Within 60 Days</div>
     </div>
   </div>
-
-  <div class="divider" style="margin: 40px auto; width: 100%;"></div>
-
+  <div style="width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(132,204,22,0.3), transparent); margin: 32px 0;"></div>
   <div class="grid-3">
     <div class="card">
-      <h3>Health & Wellness Summit 2025</h3>
+      <h3>Health &amp; Wellness Summit</h3>
       <div style="font-family: 'Space Grotesk'; font-size: 32px; font-weight: 700; color: var(--lime);">12,400+</div>
-      <div class="text-muted text-sm mb-8">registrations</div>
-      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">$42K revenue generated. Sponsors saw 45% email open rates and direct product inquiries during live sessions.</div>
+      <div class="text-muted text-sm mb-8">registrants in 3 weeks</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">Sponsors saw 45% email open rates and direct product inquiries during live sessions. All 6 spots sold out.</div>
     </div>
     <div class="card">
       <h3>Entrepreneur Mastery Summit</h3>
       <div style="font-family: 'Space Grotesk'; font-size: 32px; font-weight: 700; color: var(--lime);">9,800+</div>
-      <div class="text-muted text-sm mb-8">registrations</div>
-      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">$38K revenue generated. Presenting sponsor reported 3x ROI within 60 days from email list access alone.</div>
+      <div class="text-muted text-sm mb-8">registrants, 67% attendance rate</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">Presenting sponsor reported 3x ROI within 60 days from email list access alone. Renewed for next event immediately.</div>
     </div>
     <div class="card">
-      <h3>Mindset & Meditation Summit</h3>
+      <h3>Mindset &amp; Meditation Summit</h3>
       <div style="font-family: 'Space Grotesk'; font-size: 32px; font-weight: 700; color: var(--lime);">8,200+</div>
-      <div class="text-muted text-sm mb-8">registrations</div>
-      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">$28K revenue generated. All 6 sponsor spots sold. Category exclusivity drove zero-competition positioning.</div>
+      <div class="text-muted text-sm mb-8">registrants, 100% sponsor retention</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">Category exclusivity drove zero-competition positioning. Gold sponsor converted 340+ direct sales from summit traffic.</div>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">04 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 5: SPEAKERS -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Speaker Lineup</div>
   <h2>Your brand alongside <span class="lime">30+ world-class experts</span></h2>
-
   <div class="speaker-grid" style="margin-top: 8px;">
-    <div class="speaker-card">
-      <div class="speaker-avatar">DA</div>
-      <div class="speaker-name">Dave Asprey</div>
-      <div class="speaker-title">Father of Biohacking</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">SG</div>
-      <div class="speaker-name">Dr. Steven Gundry</div>
-      <div class="speaker-title">Plant Paradox Author</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">VL</div>
-      <div class="speaker-name">Vishen Lakhiani</div>
-      <div class="speaker-title">Mindvalley Founder</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">NJ</div>
-      <div class="speaker-name">Naveen Jain</div>
-      <div class="speaker-title">Viome Founder</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">CT</div>
-      <div class="speaker-name">Cynthia Thurlow</div>
-      <div class="speaker-title">IF Expert</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">PP</div>
-      <div class="speaker-name">Patrick Porter</div>
-      <div class="speaker-title">BrainTap Founder</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">DP</div>
-      <div class="speaker-name">Dr. Daniel Pompa</div>
-      <div class="speaker-title">Cellular Healing</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">JJ</div>
-      <div class="speaker-name">Dr. John Jaquish</div>
-      <div class="speaker-title">X3 Bar Inventor</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">JC</div>
-      <div class="speaker-name">Jay Campbell</div>
-      <div class="speaker-title">Hormone Author</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">KK</div>
-      <div class="speaker-name">Kashif Khan</div>
-      <div class="speaker-title">DNA Company</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">BA</div>
-      <div class="speaker-name">Ben Azadi</div>
-      <div class="speaker-title">Keto Kamp</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">JL</div>
-      <div class="speaker-name">James Lawrence</div>
-      <div class="speaker-title">Iron Cowboy</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">ZB</div>
-      <div class="speaker-name">Zach Bitter</div>
-      <div class="speaker-title">Ultra Record Holder</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">SB</div>
-      <div class="speaker-name">Susan Bratton</div>
-      <div class="speaker-title">Sexual Biohacking</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">CA</div>
-      <div class="speaker-name">Catharine Arnston</div>
-      <div class="speaker-title">ENERGYbits</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-avatar">TG</div>
-      <div class="speaker-name">Tim Gray</div>
-      <div class="speaker-title">Health Optimisation</div>
-    </div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/dave-asprey.jpg" alt="Dave Asprey"></div><div class="speaker-name">Dave Asprey</div><div class="speaker-title">Father of Biohacking</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/steven-gundry.jpg" alt="Dr. Steven Gundry"></div><div class="speaker-name">Dr. Steven Gundry</div><div class="speaker-title">Plant Paradox Author</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/vishen-lakhiani.jpg" alt="Vishen Lakhiani"></div><div class="speaker-name">Vishen Lakhiani</div><div class="speaker-title">Mindvalley Founder</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/naveen-jain.jpg" alt="Naveen Jain"></div><div class="speaker-name">Naveen Jain</div><div class="speaker-title">Viome Founder</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/cynthia-thurlow.jpg" alt="Cynthia Thurlow"></div><div class="speaker-name">Cynthia Thurlow</div><div class="speaker-title">IF Expert</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/patrick-porter.jpg" alt="Patrick Porter"></div><div class="speaker-name">Patrick Porter</div><div class="speaker-title">BrainTap Founder</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/daniel-pompa.jpg" alt="Dr. Daniel Pompa"></div><div class="speaker-name">Dr. Daniel Pompa</div><div class="speaker-title">Cellular Healing</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/john-jaquish.jpg" alt="Dr. John Jaquish"></div><div class="speaker-name">Dr. John Jaquish</div><div class="speaker-title">X3 Bar Inventor</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/jay-campbell.jpg" alt="Jay Campbell"></div><div class="speaker-name">Jay Campbell</div><div class="speaker-title">Hormone Author</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/kashif-khan.jpg" alt="Kashif Khan"></div><div class="speaker-name">Kashif Khan</div><div class="speaker-title">DNA Company</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/ben-azadi.jpg" alt="Ben Azadi"></div><div class="speaker-name">Ben Azadi</div><div class="speaker-title">Keto Kamp</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/james-lawrence.jpg" alt="James Lawrence"></div><div class="speaker-name">James Lawrence</div><div class="speaker-title">Iron Cowboy</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/zach-bitter.jpg" alt="Zach Bitter"></div><div class="speaker-name">Zach Bitter</div><div class="speaker-title">Ultra Record Holder</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/susan-bratton.jpg" alt="Susan Bratton"></div><div class="speaker-name">Susan Bratton</div><div class="speaker-title">Sexual Biohacking</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/catharine-arnston.jpg" alt="Catharine Arnston"></div><div class="speaker-name">Catharine Arnston</div><div class="speaker-title">ENERGYbits</div></div>
+    <div class="speaker-card"><div class="speaker-avatar"><img src="/images/speakers/tim-gray.jpg" alt="Tim Gray"></div><div class="speaker-name">Tim Gray</div><div class="speaker-title">Health Optimisation</div></div>
   </div>
-
   <p style="text-align: center; margin-top: 20px; color: rgba(255,255,255,0.4); font-size: 15px;">
     + 15 more confirmed speakers across stem cells, peptides, gut health, wearable tech, and longevity science
   </p>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">05 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 6: WHY SPONSOR -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Why Sponsor</div>
   <h2>Six reasons this <span class="lime">isn't another webinar</span></h2>
-
   <div class="grid-3" style="margin-top: 8px;">
     <div class="card">
       <div style="font-size: 32px; margin-bottom: 12px;">&#127919;</div>
       <h3>Direct Access to Buyers</h3>
-      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
-        Attendees already spend on CGMs, red light panels, peptide protocols, nootropic stacks, and longevity supplements. Your brand reaches people with wallets open.
-      </p>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">Attendees already spend on CGMs, red light panels, peptide protocols, nootropic stacks, and longevity supplements. Your brand reaches people with wallets open.</p>
     </div>
     <div class="card">
       <div style="font-size: 32px; margin-bottom: 12px;">&#127908;</div>
       <h3>Speaking Authority</h3>
-      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
-        Present alongside world-class biohacking experts as a featured speaker. Sponsors who teach are sponsors who get purchased from.
-      </p>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">Present alongside world-class biohacking experts as a featured speaker. Sponsors who teach are sponsors who get purchased from.</p>
     </div>
     <div class="card">
       <div style="font-size: 32px; margin-bottom: 12px;">&#128231;</div>
       <h3>Email List Ownership</h3>
-      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
-        No rented audiences. No algorithm changes. Direct access to 10,000+ opted-in emails with <span class="lime fw-600">40%+ open rates</span>. This list is yours to nurture.
-      </p>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">No rented audiences. No algorithm changes. Direct access to 10,000+ opted-in emails with <span class="lime fw-600">40%+ open rates</span>. This list is yours to nurture.</p>
     </div>
     <div class="card">
       <div style="font-size: 32px; margin-bottom: 12px;">&#128421;</div>
       <h3>Branded Content Integration</h3>
-      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
-        Product showcases, sponsored sessions, branded resource pages, and replay access. Your brand is woven into the event, not bolted onto it.
-      </p>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">Product showcases, sponsored sessions, branded resource pages, and replay access. Your brand is woven into the event, not bolted onto it.</p>
     </div>
     <div class="card">
       <div style="font-size: 32px; margin-bottom: 12px;">&#128274;</div>
       <h3>Category Exclusivity</h3>
-      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
-        Presenting sponsors get exclusive category rights. If you sell supplements, no other supplement brand appears alongside yours. Your message stands alone.
-      </p>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">Presenting sponsors get exclusive category rights. If you sell supplements, no other supplement brand appears alongside yours. Your message stands alone.</p>
     </div>
     <div class="card">
       <div style="font-size: 32px; margin-bottom: 12px;">&#128202;</div>
       <h3>Full ROI Reporting</h3>
-      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
-        Registration numbers, email engagement, session attendance, and conversion data. You know exactly what your sponsorship delivered. No guessing.
-      </p>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">Registration numbers, email engagement, session attendance, and conversion data. You know exactly what your sponsorship delivered. No guessing.</p>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">06 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 7: SPONSORSHIP TIERS -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Sponsorship Packages</div>
   <h2>Three tiers. <span class="lime">Six total spots.</span></h2>
-
   <div class="grid-3" style="margin-top: 8px;">
     <div class="card">
       <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 8px;">Silver Sponsor</div>
@@ -816,29 +744,19 @@
         <li>"Presented by [Your Brand]" title billing</li>
         <li>30-minute keynote or workshop slot</li>
         <li>Exclusive category sponsorship</li>
-        <li>Co-branded landing page & email sequence</li>
+        <li>Co-branded landing page &amp; email sequence</li>
         <li>Custom post-summit nurture campaign</li>
         <li>Direct strategy session with summit host</li>
       </ul>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">07 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 8: COMPARISON -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Why Virtual Wins</div>
   <h2>In-person booth vs. <span class="lime">BioHacker Live</span></h2>
-
   <div style="margin-top: 16px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
     <div class="comparison-row comparison-header">
       <div class="comparison-cell">Factor</div>
@@ -881,23 +799,13 @@
       <div class="comparison-cell"><span class="lime fw-600">Full performance dashboard included</span></div>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">08 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 9: AUDIENCE PROFILE -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Audience Profile</div>
   <h2>Who you'll reach at <span class="lime">BioHacker Live</span></h2>
-
   <div class="grid-2" style="margin-top: 16px;">
     <div>
       <div class="grid-2" style="gap: 16px;">
@@ -933,23 +841,13 @@
       </div>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">09 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 10: HOW IT WORKS -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">How It Works</div>
   <h2>From commitment to <span class="lime">ROI in 4 steps</span></h2>
-
   <div class="grid-2" style="margin-top: 16px;">
     <div>
       <div class="process-step">
@@ -992,7 +890,7 @@
           </div>
           <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
             <span style="font-weight: 600; font-size: 15px;">May 2026</span>
-            <span style="color: rgba(255,255,255,0.5); font-size: 15px;">Integration & content build</span>
+            <span style="color: rgba(255,255,255,0.5); font-size: 15px;">Integration &amp; content build</span>
           </div>
           <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
             <span style="font-weight: 600; font-size: 15px;">June 2026</span>
@@ -1010,23 +908,13 @@
       </div>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">10 / 12</div>
 </div>
 
-<!-- ============================================ -->
 <!-- SLIDE 11: FAQ -->
-<!-- ============================================ -->
 <div class="slide">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="eyebrow">Common Questions</div>
   <h2>What sponsors ask <span class="lime">before signing</span></h2>
-
   <div class="grid-2" style="margin-top: 16px; gap: 24px;">
     <div class="card">
       <h3 style="font-size: 18px;">What kind of ROI should we expect?</h3>
@@ -1053,20 +941,11 @@
       </p>
     </div>
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">11 / 12</div>
 </div>
 
-<!-- ============================================ -->
-<!-- SLIDE 12: CTA / CLOSE -->
-<!-- ============================================ -->
+<!-- SLIDE 12: CTA -->
 <div class="slide" style="justify-content: center;">
-  <div class="logo-bar">
-    <div class="logo-mark">360</div>
-    <div class="logo-text">360Summits</div>
-  </div>
-
   <div class="cta-box">
     <div class="eyebrow">Limited Availability</div>
     <h2 style="margin-bottom: 16px;">Only <span class="lime">6 sponsor spots</span>.<br>The window is closing.</h2>
@@ -1091,14 +970,51 @@
       </div>
     </div>
   </div>
-
   <div style="text-align: center; margin-top: 32px; color: rgba(255,255,255,0.2); font-size: 13px;">
     360Summits - For Those Who Love Learning
   </div>
-
   <div class="bottom-bar"></div>
-  <div class="slide-number">12 / 12</div>
 </div>
+
+</div><!-- /deck -->
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  // Build dot nav
+  const dotsContainer = document.getElementById('nav-dots');
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goSlide(i);
+    dotsContainer.appendChild(dot);
+  }
+
+  function goSlide(n) {
+    if (n < 0 || n >= total) return;
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    document.getElementById('nav-counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === total - 1;
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goSlide(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goSlide(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); goSlide(0); }
+    if (e.key === 'End') { e.preventDefault(); goSlide(total - 1); }
+  });
+
+  // Initialize button states
+  document.getElementById('prev-btn').disabled = true;
+</script>
 
 </body>
 </html>
