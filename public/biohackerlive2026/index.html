@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>BioHacker Live 2026 - Sponsorship Pitch Deck</title>
 <meta name="description" content="Put your brand in front of 10,000+ biohacking and longevity buyers. July 14-15, 2026. Only 6 sponsor spots available.">
 <meta property="og:type" content="website">
@@ -33,16 +33,20 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html, body { overflow: hidden; height: 100%; }
+  html, body {
+    overflow: hidden;
+    height: 100%;
+    height: 100dvh;
+    width: 100%;
+    position: fixed;
+    top: 0; left: 0;
+  }
 
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background: #000;
     color: var(--white);
     line-height: 1.5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   /* ── Google Slides-style engine: fixed 1280x720 canvas, scaled to fit ── */
@@ -1013,19 +1017,22 @@
   /* ── Scale deck to fit viewport (Google Slides style) ── */
   function scaleDeck() {
     const W = 1280, H = 720;
-    const vw = window.innerWidth, vh = window.innerHeight;
+    // Use visualViewport for accurate size on mobile (accounts for browser chrome)
+    const vp = window.visualViewport;
+    const vw = vp ? vp.width : window.innerWidth;
+    const vh = vp ? vp.height : window.innerHeight;
     const scale = Math.min(vw / W, vh / H);
     deck.style.transform = 'scale(' + scale + ')';
     deck.style.transformOrigin = 'top left';
-    // Center the deck
     const scaledW = W * scale, scaledH = H * scale;
     deck.style.marginLeft = ((vw - scaledW) / 2) + 'px';
     deck.style.marginTop = ((vh - scaledH) / 2) + 'px';
   }
   scaleDeck();
   window.addEventListener('resize', scaleDeck);
-  window.addEventListener('orientationchange', () => setTimeout(scaleDeck, 150));
-  if (screen.orientation) screen.orientation.addEventListener('change', () => setTimeout(scaleDeck, 150));
+  window.addEventListener('orientationchange', () => setTimeout(scaleDeck, 200));
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', scaleDeck);
+  if (screen.orientation) screen.orientation.addEventListener('change', () => setTimeout(scaleDeck, 200));
 
   /* ── Dot nav ── */
   const dotsContainer = document.getElementById('nav-dots');
