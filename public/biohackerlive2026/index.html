@@ -37,25 +37,37 @@
 
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--dark-navy);
+    background: #000;
     color: var(--white);
     line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* ── Slideshow engine ── */
-  .deck { position: relative; width: 100vw; height: 100vh; }
+  /* ── Google Slides-style engine: fixed 1280x720 canvas, scaled to fit ── */
+  .deck {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    transform-origin: top left;
+    /* scale is set by JS */
+  }
 
   .slide {
     position: absolute;
-    inset: 0;
-    padding: 60px 80px;
+    top: 0; left: 0;
+    width: 1280px;
+    height: 720px;
+    padding: 50px 64px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.45s ease;
-    overflow-y: auto;
+    transition: opacity 0.4s ease;
+    overflow: hidden;
+    background: var(--dark-navy);
   }
 
   .slide.active {
@@ -78,18 +90,18 @@
 
   /* ── Navigation ── */
   .nav-controls {
-    position: fixed;
-    bottom: 24px;
+    position: absolute;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     z-index: 100;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 100px;
-    padding: 8px 20px;
+    padding: 6px 16px;
     backdrop-filter: blur(12px);
   }
 
@@ -140,9 +152,9 @@
 
   /* ── Logo ── */
   .logo-bar {
-    position: fixed;
-    top: 24px;
-    left: 32px;
+    position: absolute;
+    top: 20px;
+    left: 28px;
     z-index: 100;
   }
 
@@ -432,9 +444,9 @@
 
   /* ── Keyboard hint ── */
   .keyboard-hint {
-    position: fixed;
-    top: 24px;
-    right: 32px;
+    position: absolute;
+    top: 20px;
+    right: 28px;
     z-index: 100;
     font-size: 12px;
     color: rgba(255,255,255,0.2);
@@ -449,85 +461,6 @@
     font-size: 11px;
     margin: 0 2px;
     background: rgba(255,255,255,0.05);
-  }
-
-  /* ── Mobile: scrollable PDF-style ── */
-  @media (max-width: 900px) {
-    html, body { overflow: auto; height: auto; }
-
-    .deck { position: static; width: 100%; height: auto; }
-
-    .slide {
-      position: relative;
-      opacity: 1;
-      pointer-events: auto;
-      min-height: auto;
-      padding: 48px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .slide.active { opacity: 1; }
-
-    .nav-controls, .keyboard-hint { display: none; }
-
-    .logo-bar { position: relative; top: 0; left: 0; padding: 20px 24px; }
-    .logo-bar svg { height: 20px; }
-
-    .slide-number { display: none; }
-
-    h1 { font-size: 36px; }
-    h2 { font-size: 28px; margin-bottom: 20px; }
-    h3 { font-size: 18px; }
-    .subtitle { font-size: 16px; margin-top: 16px; }
-    .eyebrow { font-size: 11px; padding: 5px 12px; margin-bottom: 14px; }
-
-    .stat-big { font-size: 32px; }
-
-    .grid-2, .grid-3, .grid-4 {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .card { padding: 20px; border-radius: 12px; }
-    .card-featured { margin-top: 0; padding-top: 32px; }
-    .price { font-size: 28px; }
-    .feature-list li { font-size: 14px; }
-
-    .speaker-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .speaker-avatar { width: 48px; height: 48px; }
-    .speaker-name { font-size: 10px; }
-    .speaker-title { font-size: 8px; }
-
-    .comparison-row { grid-template-columns: 1fr; gap: 0; }
-    .comparison-row { display: flex; flex-direction: column; }
-    .comparison-cell { padding: 8px 16px; font-size: 13px; }
-    .comparison-cell:first-child {
-      background: rgba(255,255,255,0.03);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding-top: 14px;
-    }
-    .comparison-header { display: none; }
-
-    .process-step { gap: 12px; padding: 16px 0; }
-    .step-num { font-size: 32px; width: 50px; }
-
-    .topic-tag { font-size: 12px; padding: 6px 12px; }
-
-    .cta-box { padding: 28px 20px; border-radius: 16px; }
-    .cta-button { font-size: 16px; padding: 14px 36px; }
-
-    .mobile-label { display: inline; font-weight: 600; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    .bottom-bar { display: none; }
-
-    /* CTA contact info stack */
-    .cta-box > div:last-child { flex-direction: column; gap: 16px !important; }
   }
 
   /* Print overrides */
@@ -1072,11 +1005,27 @@
 </div><!-- /deck -->
 
 <script>
+  const deck = document.querySelector('.deck');
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let current = 0;
 
-  // Build dot nav
+  /* ── Scale deck to fit viewport (Google Slides style) ── */
+  function scaleDeck() {
+    const W = 1280, H = 720;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const scale = Math.min(vw / W, vh / H);
+    deck.style.transform = 'scale(' + scale + ')';
+    deck.style.transformOrigin = 'top left';
+    // Center the deck
+    const scaledW = W * scale, scaledH = H * scale;
+    deck.style.marginLeft = ((vw - scaledW) / 2) + 'px';
+    deck.style.marginTop = ((vh - scaledH) / 2) + 'px';
+  }
+  scaleDeck();
+  window.addEventListener('resize', scaleDeck);
+
+  /* ── Dot nav ── */
   const dotsContainer = document.getElementById('nav-dots');
   for (let i = 0; i < total; i++) {
     const dot = document.createElement('button');
@@ -1097,7 +1046,7 @@
     document.getElementById('next-btn').disabled = current === total - 1;
   }
 
-  // Keyboard navigation
+  /* ── Keyboard ── */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goSlide(current + 1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); goSlide(current - 1); }
@@ -1105,7 +1054,31 @@
     if (e.key === 'End') { e.preventDefault(); goSlide(total - 1); }
   });
 
-  // Initialize button states
+  /* ── Touch swipe ── */
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) < 40 || Math.abs(dy) > Math.abs(dx)) return; // too short or vertical
+    if (dx < 0) goSlide(current + 1);
+    else goSlide(current - 1);
+  }, { passive: true });
+
+  /* ── Tap left/right halves to navigate ── */
+  document.addEventListener('click', (e) => {
+    // Don't interfere with buttons/links
+    if (e.target.closest('a, button, .nav-controls')) return;
+    const x = e.clientX / window.innerWidth;
+    if (x > 0.65) goSlide(current + 1);
+    else if (x < 0.35) goSlide(current - 1);
+  });
+
+  // Initialize
   document.getElementById('prev-btn').disabled = true;
 </script>
 
