@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BioHacker Live 2026 - Sponsorship Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #330362;
+    --blue: #040ECF;
+    --lime: #84CC16;
+    --lime-light: #A3E635;
+    --purple-light: #5B1A9E;
+    --purple-lighter: #8B5CF6;
+    --dark-navy: #0a0a0f;
+    --dark-charcoal: #111118;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  @media print {
+    .slide { page-break-after: always; page-break-inside: avoid; }
+    .slide:last-child { page-break-after: auto; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--dark-navy);
+    color: var(--white);
+    line-height: 1.5;
+  }
+
+  .slide {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(51,3,98,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(4,14,207,0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  .slide-number {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.1em;
+  }
+
+  .logo-bar {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+  }
+
+  .logo-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+
+  h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--lime);
+    margin-bottom: 20px;
+    padding: 6px 16px;
+    border: 1px solid rgba(132,204,22,0.3);
+    border-radius: 100px;
+    background: rgba(132,204,22,0.08);
+  }
+
+  .lime { color: var(--lime); }
+  .lime-gradient {
+    background: linear-gradient(135deg, var(--lime), var(--lime-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 22px;
+    color: rgba(255,255,255,0.55);
+    max-width: 700px;
+    line-height: 1.6;
+    margin-top: 24px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.3s;
+  }
+
+  .card:hover { border-color: rgba(132,204,22,0.3); }
+
+  .card-featured {
+    border-color: var(--lime);
+    background: rgba(132,204,22,0.05);
+    position: relative;
+  }
+
+  .card-featured::after {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--lime);
+    color: var(--dark-navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 16px;
+    border-radius: 100px;
+  }
+
+  .stat-big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 15px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 8px;
+  }
+
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .feature-list li {
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .feature-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lime);
+  }
+
+  .price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+    border-radius: 2px;
+    margin: 24px 0;
+  }
+
+  .speaker-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 16px;
+  }
+
+  .speaker-card {
+    text-align: center;
+    padding: 12px 4px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+
+  .speaker-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple-light), var(--blue));
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .speaker-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.2;
+  }
+
+  .speaker-title {
+    font-size: 9px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+
+  .topic-tag {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.7);
+    margin: 4px;
+  }
+
+  .process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 0;
+  }
+
+  .step-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: rgba(132,204,22,0.2);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 70px;
+  }
+
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .comparison-cell {
+    padding: 16px 24px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .comparison-cell:first-child {
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .comparison-header .comparison-cell {
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    border-bottom: 2px solid rgba(132,204,22,0.3);
+    padding-bottom: 12px;
+  }
+
+  .comparison-header .comparison-cell:last-child {
+    color: var(--lime);
+  }
+
+  .cta-box {
+    text-align: center;
+    padding: 48px;
+    background: linear-gradient(135deg, rgba(51,3,98,0.3), rgba(4,14,207,0.2));
+    border: 1px solid rgba(132,204,22,0.2);
+    border-radius: 24px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 16px 48px;
+    background: var(--lime);
+    color: var(--dark-navy);
+    font-weight: 700;
+    font-size: 18px;
+    border-radius: 100px;
+    text-decoration: none;
+    margin-top: 24px;
+    box-shadow: 0 0 40px rgba(132,204,22,0.3);
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--blue), var(--lime));
+  }
+
+  .text-muted { color: rgba(255,255,255,0.5); }
+  .text-sm { font-size: 14px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .mt-48 { margin-top: 48px; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .fw-600 { font-weight: 600; }
+  .text-center { text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ============================================ -->
+<div class="slide" style="justify-content: center; text-align: center;">
+  <div class="logo-bar" style="left: 50%; transform: translateX(-50%); top: 50px;">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div>
+    <div class="eyebrow">Sponsorship Opportunity</div>
+    <h1>
+      BioHacker Live<br>
+      <span class="lime-gradient">2026</span>
+    </h1>
+    <p class="subtitle" style="margin: 24px auto 0; text-align: center;">
+      Put your brand in front of 10,000+ biohacking and longevity buyers.<br>
+      A virtual summit with deeper integration and a fraction of the cost of live events.
+    </p>
+    <div style="margin-top: 40px; display: flex; justify-content: center; gap: 40px;">
+      <div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--lime);">July 14-15, 2026</div>
+        <div class="text-muted text-sm" style="margin-top: 4px;">2-Day Virtual Summit</div>
+      </div>
+      <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+      <div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--lime);">6 Spots</div>
+        <div class="text-muted text-sm" style="margin-top: 4px;">Limited Sponsorships</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">01 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 2: THE OPPORTUNITY -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">The Opportunity</div>
+  <h2>The biohacking market is<br><span class="lime">exploding</span></h2>
+
+  <div class="grid-2" style="margin-top: 16px;">
+    <div>
+      <p style="font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 500px;">
+        The global biohacking market is projected to reach <strong style="color: white;">$85B+ by 2030</strong>, growing at 17%+ CAGR. These consumers are educated, high-income, and actively spending on optimization products, supplements, wearables, and longevity protocols.
+      </p>
+      <p style="font-size: 18px; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 500px; margin-top: 20px;">
+        BioHacker Live gives your brand <strong style="color: white;">direct access to this audience</strong> - not through ads that get scrolled past, but through deep, content-driven integration alongside the world's leading biohacking experts.
+      </p>
+    </div>
+    <div class="grid-2" style="gap: 20px;">
+      <div class="card" style="text-align: center; padding: 28px;">
+        <div class="stat-big lime-gradient">$85B+</div>
+        <div class="stat-label">Market size by 2030</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 28px;">
+        <div class="stat-big lime-gradient">17%+</div>
+        <div class="stat-label">Annual growth rate</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 28px;">
+        <div class="stat-big lime-gradient">72%</div>
+        <div class="stat-label">Buy products they discover at events</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 28px;">
+        <div class="stat-big lime-gradient">$2.4K</div>
+        <div class="stat-label">Avg. annual spend per enthusiast</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">02 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 3: EVENT OVERVIEW -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Event Overview</div>
+  <h2>BioHacker Live 2026</h2>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3 class="lime">What</h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.7;">
+        A 2-day virtual summit bringing together 30+ world-class speakers in biohacking, longevity, and human optimization. Live presentations, Q&A sessions, product showcases, and networking.
+      </p>
+    </div>
+    <div class="card">
+      <h3 class="lime">When</h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.7;">
+        <strong style="color: white;">July 14-15, 2026</strong><br>
+        9:00 AM - 6:00 PM EDT each day.<br>
+        Replays available for 48 hours post-event for maximum sponsor exposure.
+      </p>
+    </div>
+    <div class="card">
+      <h3 class="lime">Who</h3>
+      <p style="color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.7;">
+        <strong style="color: white;">10,000+ registrants</strong> - health-obsessed professionals, longevity seekers, and biohacking enthusiasts who actively invest in CGMs, supplements, wearables, and optimization protocols.
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+    <span class="topic-tag">Sleep Optimization</span>
+    <span class="topic-tag">Nootropics</span>
+    <span class="topic-tag">Cold/Heat Therapy</span>
+    <span class="topic-tag">Functional Nutrition</span>
+    <span class="topic-tag">Wearable Tech</span>
+    <span class="topic-tag">Hormonal Health</span>
+    <span class="topic-tag">Longevity Protocols</span>
+    <span class="topic-tag">Stem Cells</span>
+    <span class="topic-tag">Peptides</span>
+    <span class="topic-tag">Gut Health</span>
+    <span class="topic-tag">Breathwork</span>
+    <span class="topic-tag">Stress & Recovery</span>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">03 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 4: TRACK RECORD -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Our Track Record</div>
+  <h2>Proven results across <span class="lime">50+ summits</span></h2>
+
+  <div class="grid-4" style="margin-top: 16px;">
+    <div class="card" style="text-align: center;">
+      <div class="stat-big lime-gradient">50+</div>
+      <div class="stat-label">Summits Produced</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="stat-big lime-gradient">200+</div>
+      <div class="stat-label">Speakers Managed</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="stat-big lime-gradient">1M+</div>
+      <div class="stat-label">Total Registrations</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div class="stat-big lime-gradient">$500K+</div>
+      <div class="stat-label">Client Revenue Generated</div>
+    </div>
+  </div>
+
+  <div class="divider" style="margin: 40px auto; width: 100%;"></div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Health & Wellness Summit 2025</h3>
+      <div style="font-family: 'Space Grotesk'; font-size: 32px; font-weight: 700; color: var(--lime);">12,400+</div>
+      <div class="text-muted text-sm mb-8">registrations</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">$42K revenue generated. Sponsors saw 45% email open rates and direct product inquiries during live sessions.</div>
+    </div>
+    <div class="card">
+      <h3>Entrepreneur Mastery Summit</h3>
+      <div style="font-family: 'Space Grotesk'; font-size: 32px; font-weight: 700; color: var(--lime);">9,800+</div>
+      <div class="text-muted text-sm mb-8">registrations</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">$38K revenue generated. Presenting sponsor reported 3x ROI within 60 days from email list access alone.</div>
+    </div>
+    <div class="card">
+      <h3>Mindset & Meditation Summit</h3>
+      <div style="font-family: 'Space Grotesk'; font-size: 32px; font-weight: 700; color: var(--lime);">8,200+</div>
+      <div class="text-muted text-sm mb-8">registrations</div>
+      <div style="font-size: 15px; color: rgba(255,255,255,0.5);">$28K revenue generated. All 6 sponsor spots sold. Category exclusivity drove zero-competition positioning.</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">04 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 5: SPEAKERS -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Speaker Lineup</div>
+  <h2>Your brand alongside <span class="lime">30+ world-class experts</span></h2>
+
+  <div class="speaker-grid" style="margin-top: 8px;">
+    <div class="speaker-card">
+      <div class="speaker-avatar">DA</div>
+      <div class="speaker-name">Dave Asprey</div>
+      <div class="speaker-title">Father of Biohacking</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">SG</div>
+      <div class="speaker-name">Dr. Steven Gundry</div>
+      <div class="speaker-title">Plant Paradox Author</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">VL</div>
+      <div class="speaker-name">Vishen Lakhiani</div>
+      <div class="speaker-title">Mindvalley Founder</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">NJ</div>
+      <div class="speaker-name">Naveen Jain</div>
+      <div class="speaker-title">Viome Founder</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">CT</div>
+      <div class="speaker-name">Cynthia Thurlow</div>
+      <div class="speaker-title">IF Expert</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">PP</div>
+      <div class="speaker-name">Patrick Porter</div>
+      <div class="speaker-title">BrainTap Founder</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">DP</div>
+      <div class="speaker-name">Dr. Daniel Pompa</div>
+      <div class="speaker-title">Cellular Healing</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">JJ</div>
+      <div class="speaker-name">Dr. John Jaquish</div>
+      <div class="speaker-title">X3 Bar Inventor</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">JC</div>
+      <div class="speaker-name">Jay Campbell</div>
+      <div class="speaker-title">Hormone Author</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">KK</div>
+      <div class="speaker-name">Kashif Khan</div>
+      <div class="speaker-title">DNA Company</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">BA</div>
+      <div class="speaker-name">Ben Azadi</div>
+      <div class="speaker-title">Keto Kamp</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">JL</div>
+      <div class="speaker-name">James Lawrence</div>
+      <div class="speaker-title">Iron Cowboy</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">ZB</div>
+      <div class="speaker-name">Zach Bitter</div>
+      <div class="speaker-title">Ultra Record Holder</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">SB</div>
+      <div class="speaker-name">Susan Bratton</div>
+      <div class="speaker-title">Sexual Biohacking</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">CA</div>
+      <div class="speaker-name">Catharine Arnston</div>
+      <div class="speaker-title">ENERGYbits</div>
+    </div>
+    <div class="speaker-card">
+      <div class="speaker-avatar">TG</div>
+      <div class="speaker-name">Tim Gray</div>
+      <div class="speaker-title">Health Optimisation</div>
+    </div>
+  </div>
+
+  <p style="text-align: center; margin-top: 20px; color: rgba(255,255,255,0.4); font-size: 15px;">
+    + 15 more confirmed speakers across stem cells, peptides, gut health, wearable tech, and longevity science
+  </p>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">05 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 6: WHY SPONSOR -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Why Sponsor</div>
+  <h2>Six reasons this <span class="lime">isn't another webinar</span></h2>
+
+  <div class="grid-3" style="margin-top: 8px;">
+    <div class="card">
+      <div style="font-size: 32px; margin-bottom: 12px;">&#127919;</div>
+      <h3>Direct Access to Buyers</h3>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+        Attendees already spend on CGMs, red light panels, peptide protocols, nootropic stacks, and longevity supplements. Your brand reaches people with wallets open.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 32px; margin-bottom: 12px;">&#127908;</div>
+      <h3>Speaking Authority</h3>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+        Present alongside world-class biohacking experts as a featured speaker. Sponsors who teach are sponsors who get purchased from.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 32px; margin-bottom: 12px;">&#128231;</div>
+      <h3>Email List Ownership</h3>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+        No rented audiences. No algorithm changes. Direct access to 10,000+ opted-in emails with <span class="lime fw-600">40%+ open rates</span>. This list is yours to nurture.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 32px; margin-bottom: 12px;">&#128421;</div>
+      <h3>Branded Content Integration</h3>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+        Product showcases, sponsored sessions, branded resource pages, and replay access. Your brand is woven into the event, not bolted onto it.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 32px; margin-bottom: 12px;">&#128274;</div>
+      <h3>Category Exclusivity</h3>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+        Presenting sponsors get exclusive category rights. If you sell supplements, no other supplement brand appears alongside yours. Your message stands alone.
+      </p>
+    </div>
+    <div class="card">
+      <div style="font-size: 32px; margin-bottom: 12px;">&#128202;</div>
+      <h3>Full ROI Reporting</h3>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+        Registration numbers, email engagement, session attendance, and conversion data. You know exactly what your sponsorship delivered. No guessing.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">06 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 7: SPONSORSHIP TIERS -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Sponsorship Packages</div>
+  <h2>Three tiers. <span class="lime">Six total spots.</span></h2>
+
+  <div class="grid-3" style="margin-top: 8px;">
+    <div class="card">
+      <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 8px;">Silver Sponsor</div>
+      <div class="price">$10,000</div>
+      <div class="text-muted text-sm mb-16">2 spots remaining</div>
+      <div class="divider"></div>
+      <ul class="feature-list">
+        <li>Logo on summit landing page and emails</li>
+        <li>Branded resource page in the summit hub</li>
+        <li>Access to registrant email list (opt-in)</li>
+        <li>Social media mentions (3+ posts)</li>
+        <li>Post-summit performance report</li>
+      </ul>
+    </div>
+    <div class="card card-featured" style="margin-top: -8px; padding-top: 40px;">
+      <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--lime); margin-bottom: 8px;">Gold Sponsor</div>
+      <div class="price">$25,000</div>
+      <div class="text-muted text-sm mb-16">2 spots remaining</div>
+      <div class="divider"></div>
+      <ul class="feature-list">
+        <li>Everything in Silver, plus:</li>
+        <li>15-minute sponsored speaking session</li>
+        <li>Premium logo placement (above the fold)</li>
+        <li>Dedicated sponsor email to full list</li>
+        <li>Product showcase or demo slot</li>
+        <li>Priority placement in replay access</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 8px;">Presenting Sponsor</div>
+      <div class="price">$50,000+</div>
+      <div class="text-muted text-sm mb-16">1 spot remaining</div>
+      <div class="divider"></div>
+      <ul class="feature-list">
+        <li>Everything in Gold, plus:</li>
+        <li>"Presented by [Your Brand]" title billing</li>
+        <li>30-minute keynote or workshop slot</li>
+        <li>Exclusive category sponsorship</li>
+        <li>Co-branded landing page & email sequence</li>
+        <li>Custom post-summit nurture campaign</li>
+        <li>Direct strategy session with summit host</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">07 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 8: COMPARISON -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Why Virtual Wins</div>
+  <h2>In-person booth vs. <span class="lime">BioHacker Live</span></h2>
+
+  <div style="margin-top: 16px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
+    <div class="comparison-row comparison-header">
+      <div class="comparison-cell">Factor</div>
+      <div class="comparison-cell">In-Person Conference</div>
+      <div class="comparison-cell">BioHacker Live 2026</div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-cell">Cost</div>
+      <div class="comparison-cell">$15K-$40K + travel, staff, logistics</div>
+      <div class="comparison-cell"><span class="lime fw-600">Starting at $10K, all-inclusive</span></div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-cell">Speaking Slot</div>
+      <div class="comparison-cell">Rarely offered to sponsors</div>
+      <div class="comparison-cell"><span class="lime fw-600">Included at Gold tier and above</span></div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-cell">Email List Access</div>
+      <div class="comparison-cell">Badge scans only (low quality)</div>
+      <div class="comparison-cell"><span class="lime fw-600">Full opt-in list with 40%+ open rates</span></div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-cell">Audience Reach</div>
+      <div class="comparison-cell">Limited to in-person attendees</div>
+      <div class="comparison-cell"><span class="lime fw-600">10,000+ registrants, global reach</span></div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-cell">Content Lifespan</div>
+      <div class="comparison-cell">Event ends, visibility ends</div>
+      <div class="comparison-cell"><span class="lime fw-600">48-hour replay + evergreen nurture</span></div>
+    </div>
+    <div class="comparison-row">
+      <div class="comparison-cell">Category Exclusivity</div>
+      <div class="comparison-cell">Compete with 50+ other booths</div>
+      <div class="comparison-cell"><span class="lime fw-600">Only 6 sponsors total. Exclusivity available.</span></div>
+    </div>
+    <div class="comparison-row" style="border-bottom: none;">
+      <div class="comparison-cell">ROI Reporting</div>
+      <div class="comparison-cell">Minimal or self-reported</div>
+      <div class="comparison-cell"><span class="lime fw-600">Full performance dashboard included</span></div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">08 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 9: AUDIENCE PROFILE -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Audience Profile</div>
+  <h2>Who you'll reach at <span class="lime">BioHacker Live</span></h2>
+
+  <div class="grid-2" style="margin-top: 16px;">
+    <div>
+      <div class="grid-2" style="gap: 16px;">
+        <div class="card" style="padding: 24px; text-align: center;">
+          <div style="font-family: 'Space Grotesk'; font-size: 36px; font-weight: 700; color: var(--lime);">73%</div>
+          <div class="text-muted text-sm">Ages 28-55</div>
+        </div>
+        <div class="card" style="padding: 24px; text-align: center;">
+          <div style="font-family: 'Space Grotesk'; font-size: 36px; font-weight: 700; color: var(--lime);">68%</div>
+          <div class="text-muted text-sm">Income $100K+</div>
+        </div>
+        <div class="card" style="padding: 24px; text-align: center;">
+          <div style="font-family: 'Space Grotesk'; font-size: 36px; font-weight: 700; color: var(--lime);">85%</div>
+          <div class="text-muted text-sm">Buy supplements monthly</div>
+        </div>
+        <div class="card" style="padding: 24px; text-align: center;">
+          <div style="font-family: 'Space Grotesk'; font-size: 36px; font-weight: 700; color: var(--lime);">91%</div>
+          <div class="text-muted text-sm">Use wearable devices</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="height: 100%;">
+        <h3 class="lime">Audience Segments</h3>
+        <div class="divider" style="margin: 16px 0;"></div>
+        <ul class="feature-list">
+          <li><strong style="color: white;">Health-Obsessed Professionals</strong> - Executives and entrepreneurs who invest heavily in performance optimization</li>
+          <li><strong style="color: white;">Longevity Seekers</strong> - Early adopters of anti-aging protocols, stem cell therapy, and peptides</li>
+          <li><strong style="color: white;">Fitness Optimizers</strong> - Athletes and fitness enthusiasts pushing beyond conventional training</li>
+          <li><strong style="color: white;">Wellness Practitioners</strong> - Functional medicine doctors, coaches, and health professionals</li>
+          <li><strong style="color: white;">Biohacking Beginners</strong> - Curious consumers entering the space and actively researching products</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">09 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 10: HOW IT WORKS -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">How It Works</div>
+  <h2>From commitment to <span class="lime">ROI in 4 steps</span></h2>
+
+  <div class="grid-2" style="margin-top: 16px;">
+    <div>
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Claim Your Tier</h3>
+          <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7;">Review the Silver, Gold, and Presenting packages. Lock in the level of integration that fits your goals and budget.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>We Design Your Integration</h3>
+          <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7;">Our team builds your presence into the event: speaking slots, branded content, email sequences, and product showcases.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Go Live to 10,000+</h3>
+          <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7;">The summit launches July 14-15 and your brand is front and center with 10,000+ biohacking and longevity enthusiasts.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Get the Numbers</h3>
+          <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7;">Post-summit, you receive a full performance report: registrations, email opens, session attendance, clicks, and conversions.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="card" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+        <h3 style="color: var(--lime); font-size: 20px;">Timeline</h3>
+        <div class="divider" style="margin: 12px 0;"></div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <span style="font-weight: 600; font-size: 15px;">Today</span>
+            <span style="color: rgba(255,255,255,0.5); font-size: 15px;">Secure your spot</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <span style="font-weight: 600; font-size: 15px;">May 2026</span>
+            <span style="color: rgba(255,255,255,0.5); font-size: 15px;">Integration & content build</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <span style="font-weight: 600; font-size: 15px;">June 2026</span>
+            <span style="color: rgba(255,255,255,0.5); font-size: 15px;">Pre-launch promotion</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+            <span style="font-weight: 600; font-size: 15px; color: var(--lime);">July 14-15</span>
+            <span style="color: var(--lime); font-size: 15px; font-weight: 600;">Summit goes LIVE</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+            <span style="font-weight: 600; font-size: 15px;">July 21</span>
+            <span style="color: rgba(255,255,255,0.5); font-size: 15px;">ROI report delivered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">10 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 11: FAQ -->
+<!-- ============================================ -->
+<div class="slide">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="eyebrow">Common Questions</div>
+  <h2>What sponsors ask <span class="lime">before signing</span></h2>
+
+  <div class="grid-2" style="margin-top: 16px; gap: 24px;">
+    <div class="card">
+      <h3 style="font-size: 18px;">What kind of ROI should we expect?</h3>
+      <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7; margin-top: 8px;">
+        Sponsors typically see 40%+ email open rates, direct product inquiries during live sessions, and ongoing pipeline from email access. We provide full reporting so you can measure every metric that matters.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size: 18px;">How does this compare to in-person events?</h3>
+      <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7; margin-top: 8px;">
+        In-person booths run $15K-$40K plus travel. BioHacker Live starts at $10K with email list ownership, speaking slots, and full ROI reporting. No travel. No logistics.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size: 18px;">Is the audience engaged or just registered?</h3>
+      <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7; margin-top: 8px;">
+        Summit registrants actively opted in for a multi-day educational event. They attend sessions, ask questions in Q&A, and open emails at 40%+ rates. These are not passive followers.
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="font-size: 18px;">Can we get category exclusivity?</h3>
+      <p style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.7; margin-top: 8px;">
+        Yes. Presenting Sponsors receive exclusive category rights - no competing brand sponsors the same summit. Total sponsors are capped at 6 per event to maximize exclusivity.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">11 / 12</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 12: CTA / CLOSE -->
+<!-- ============================================ -->
+<div class="slide" style="justify-content: center;">
+  <div class="logo-bar">
+    <div class="logo-mark">360</div>
+    <div class="logo-text">360Summits</div>
+  </div>
+
+  <div class="cta-box">
+    <div class="eyebrow">Limited Availability</div>
+    <h2 style="margin-bottom: 16px;">Only <span class="lime">6 sponsor spots</span>.<br>The window is closing.</h2>
+    <p style="font-size: 18px; color: rgba(255,255,255,0.55); max-width: 600px; margin: 0 auto; line-height: 1.7;">
+      BioHacker Live 2026 launches <strong style="color: white;">July 14-15</strong>. Sponsorship integration requires 4-6 weeks of lead time. Secure your tier, your category, and your spot before they're gone.
+    </p>
+    <div style="margin-top: 40px;">
+      <a href="mailto:info@360summits.com" class="cta-button">Claim Your Spot</a>
+    </div>
+    <div style="margin-top: 32px; display: flex; justify-content: center; gap: 48px;">
+      <div>
+        <div style="font-size: 14px; color: rgba(255,255,255,0.35); margin-bottom: 4px;">Email</div>
+        <div style="font-size: 16px; font-weight: 600;">info@360summits.com</div>
+      </div>
+      <div>
+        <div style="font-size: 14px; color: rgba(255,255,255,0.35); margin-bottom: 4px;">Website</div>
+        <div style="font-size: 16px; font-weight: 600;">360summits.com</div>
+      </div>
+      <div>
+        <div style="font-size: 14px; color: rgba(255,255,255,0.35); margin-bottom: 4px;">Phone</div>
+        <div style="font-size: 16px; font-weight: 600;">(714) 436-1234</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 32px; color: rgba(255,255,255,0.2); font-size: 13px;">
+    360Summits - For Those Who Love Learning
+  </div>
+
+  <div class="bottom-bar"></div>
+  <div class="slide-number">12 / 12</div>
+</div>
+
+</body>
+</html>
