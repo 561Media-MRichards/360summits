@@ -422,6 +422,8 @@
     background: linear-gradient(90deg, var(--purple), var(--blue), var(--lime));
   }
 
+  .mobile-label { display: none; }
+
   .text-muted { color: rgba(255,255,255,0.5); }
   .text-sm { font-size: 14px; }
   .fw-600 { font-weight: 600; }
@@ -447,6 +449,85 @@
     font-size: 11px;
     margin: 0 2px;
     background: rgba(255,255,255,0.05);
+  }
+
+  /* ── Mobile: scrollable PDF-style ── */
+  @media (max-width: 900px) {
+    html, body { overflow: auto; height: auto; }
+
+    .deck { position: static; width: 100%; height: auto; }
+
+    .slide {
+      position: relative;
+      opacity: 1;
+      pointer-events: auto;
+      min-height: auto;
+      padding: 48px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .slide.active { opacity: 1; }
+
+    .nav-controls, .keyboard-hint { display: none; }
+
+    .logo-bar { position: relative; top: 0; left: 0; padding: 20px 24px; }
+    .logo-bar svg { height: 20px; }
+
+    .slide-number { display: none; }
+
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; margin-bottom: 20px; }
+    h3 { font-size: 18px; }
+    .subtitle { font-size: 16px; margin-top: 16px; }
+    .eyebrow { font-size: 11px; padding: 5px 12px; margin-bottom: 14px; }
+
+    .stat-big { font-size: 32px; }
+
+    .grid-2, .grid-3, .grid-4 {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .card { padding: 20px; border-radius: 12px; }
+    .card-featured { margin-top: 0; padding-top: 32px; }
+    .price { font-size: 28px; }
+    .feature-list li { font-size: 14px; }
+
+    .speaker-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .speaker-avatar { width: 48px; height: 48px; }
+    .speaker-name { font-size: 10px; }
+    .speaker-title { font-size: 8px; }
+
+    .comparison-row { grid-template-columns: 1fr; gap: 0; }
+    .comparison-row { display: flex; flex-direction: column; }
+    .comparison-cell { padding: 8px 16px; font-size: 13px; }
+    .comparison-cell:first-child {
+      background: rgba(255,255,255,0.03);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-top: 14px;
+    }
+    .comparison-header { display: none; }
+
+    .process-step { gap: 12px; padding: 16px 0; }
+    .step-num { font-size: 32px; width: 50px; }
+
+    .topic-tag { font-size: 12px; padding: 6px 12px; }
+
+    .cta-box { padding: 28px 20px; border-radius: 16px; }
+    .cta-button { font-size: 16px; padding: 14px 36px; }
+
+    .mobile-label { display: inline; font-weight: 600; color: rgba(255,255,255,0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .bottom-bar { display: none; }
+
+    /* CTA contact info stack */
+    .cta-box > div:last-child { flex-direction: column; gap: 16px !important; }
   }
 
   /* Print overrides */
@@ -777,38 +858,38 @@
     </div>
     <div class="comparison-row">
       <div class="comparison-cell">Cost</div>
-      <div class="comparison-cell">$15K-$40K + travel, staff, logistics</div>
-      <div class="comparison-cell"><span class="lime fw-600">Starting at $10K, all-inclusive</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>$15K-$40K + travel, staff, logistics</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">Starting at $10K, all-inclusive</span></div>
     </div>
     <div class="comparison-row">
       <div class="comparison-cell">Speaking Slot</div>
-      <div class="comparison-cell">Rarely offered to sponsors</div>
-      <div class="comparison-cell"><span class="lime fw-600">Included at Gold tier and above</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>Rarely offered to sponsors</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">Included at Gold tier and above</span></div>
     </div>
     <div class="comparison-row">
       <div class="comparison-cell">Email List Access</div>
-      <div class="comparison-cell">Badge scans only (low quality)</div>
-      <div class="comparison-cell"><span class="lime fw-600">Full opt-in list with 40%+ open rates</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>Badge scans only (low quality)</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">Full opt-in list with 40%+ open rates</span></div>
     </div>
     <div class="comparison-row">
       <div class="comparison-cell">Audience Reach</div>
-      <div class="comparison-cell">Limited to in-person attendees</div>
-      <div class="comparison-cell"><span class="lime fw-600">10,000+ registrants, global reach</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>Limited to in-person attendees</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">10,000+ registrants, global reach</span></div>
     </div>
     <div class="comparison-row">
       <div class="comparison-cell">Content Lifespan</div>
-      <div class="comparison-cell">Event ends, visibility ends</div>
-      <div class="comparison-cell"><span class="lime fw-600">48-hour replay + evergreen nurture</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>Event ends, visibility ends</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">48-hour replay + evergreen nurture</span></div>
     </div>
     <div class="comparison-row">
       <div class="comparison-cell">Category Exclusivity</div>
-      <div class="comparison-cell">Compete with 50+ other booths</div>
-      <div class="comparison-cell"><span class="lime fw-600">Only 6 sponsors total. Exclusivity available.</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>Compete with 50+ other booths</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">Only 6 sponsors total. Exclusivity available.</span></div>
     </div>
     <div class="comparison-row" style="border-bottom: none;">
       <div class="comparison-cell">ROI Reporting</div>
-      <div class="comparison-cell">Minimal or self-reported</div>
-      <div class="comparison-cell"><span class="lime fw-600">Full performance dashboard included</span></div>
+      <div class="comparison-cell"><span class="mobile-label">In-Person: </span>Minimal or self-reported</div>
+      <div class="comparison-cell"><span class="mobile-label">BioHacker Live: </span><span class="lime fw-600">Full performance dashboard included</span></div>
     </div>
   </div>
   <div class="bottom-bar"></div>
