@@ -1024,6 +1024,8 @@
   }
   scaleDeck();
   window.addEventListener('resize', scaleDeck);
+  window.addEventListener('orientationchange', () => setTimeout(scaleDeck, 150));
+  if (screen.orientation) screen.orientation.addEventListener('change', () => setTimeout(scaleDeck, 150));
 
   /* ── Dot nav ── */
   const dotsContainer = document.getElementById('nav-dots');
