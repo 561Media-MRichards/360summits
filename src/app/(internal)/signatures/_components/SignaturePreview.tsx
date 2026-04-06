@@ -42,68 +42,130 @@ export default function SignaturePreview({
     <div
       style={{
         minHeight: "100vh",
-        background: "#f7f7fb",
+        background: "linear-gradient(180deg, #FFF9EE 0%, #F3EEFF 50%, #EEF6FF 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "40px 20px",
-        fontFamily: "Arial, Helvetica, sans-serif",
+        padding: "60px 20px",
+        fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, Helvetica, sans-serif",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <h1
-        style={{
-          fontSize: "14px",
-          fontWeight: 600,
-          color: "#330362",
-          textTransform: "uppercase",
-          letterSpacing: "1.5px",
-          marginBottom: "24px",
-        }}
-      >
-        Email Signature - {employeeName}
-      </h1>
-
+      {/* Decorative blobs */}
       <div
         style={{
-          background: "#ffffff",
-          borderRadius: "12px",
-          padding: "40px",
-          boxShadow: "0 2px 16px rgba(0,0,0,0.06)",
-          maxWidth: "560px",
+          position: "absolute",
+          top: "-120px",
+          right: "-120px",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-80px",
+          left: "-80px",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(132,204,22,0.1) 0%, transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Header badge */}
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "8px",
+          padding: "8px 20px",
+          background: "rgba(255,255,255,0.8)",
+          backdropFilter: "blur(8px)",
+          borderRadius: "100px",
+          border: "1px solid rgba(255,255,255,0.6)",
+          marginBottom: "32px",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+        }}
+      >
+        <div
+          style={{
+            width: "8px",
+            height: "8px",
+            borderRadius: "50%",
+            background: "#84CC16",
+          }}
+        />
+        <span
+          style={{
+            fontSize: "13px",
+            fontWeight: 500,
+            color: "#44446a",
+            letterSpacing: "0.2px",
+          }}
+        >
+          Email Signature for {employeeName}
+        </span>
+      </div>
+
+      {/* Signature card */}
+      <div
+        style={{
+          background: "rgba(255,255,255,0.7)",
+          backdropFilter: "blur(12px)",
+          borderRadius: "24px",
+          padding: "48px",
+          border: "1px solid rgba(255,255,255,0.6)",
+          boxShadow: "0 4px 32px rgba(51,3,98,0.06), 0 1px 4px rgba(0,0,0,0.04)",
+          maxWidth: "620px",
           width: "100%",
+          position: "relative",
         }}
       >
         <div dangerouslySetInnerHTML={{ __html: signatureHtml }} />
       </div>
 
-      <button
-        onClick={handleCopy}
-        style={{
-          marginTop: "24px",
-          padding: "12px 32px",
-          fontSize: "14px",
-          fontWeight: 600,
-          color: "#ffffff",
-          background: copied ? "#65A30D" : "#330362",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          transition: "background 0.2s ease",
-          letterSpacing: "0.5px",
-        }}
-      >
-        {copied ? "Copied to Clipboard!" : "Copy Signature"}
-      </button>
+      {/* Action buttons */}
+      <div style={{ display: "flex", gap: "12px", marginTop: "28px", alignItems: "center" }}>
+        <button
+          onClick={handleCopy}
+          style={{
+            padding: "14px 36px",
+            fontSize: "14px",
+            fontWeight: 700,
+            color: "#ffffff",
+            background: copied
+              ? "linear-gradient(135deg, #84CC16 0%, #65A30D 100%)"
+              : "linear-gradient(135deg, #330362 0%, #5B1A9E 100%)",
+            border: "none",
+            borderRadius: "100px",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+            letterSpacing: "0.3px",
+            boxShadow: copied
+              ? "0 4px 20px rgba(132,204,22,0.3)"
+              : "0 4px 20px rgba(51,3,98,0.25)",
+          }}
+        >
+          {copied ? "Copied!" : "Copy Signature"}
+        </button>
+      </div>
 
       <p
         style={{
           marginTop: "16px",
           fontSize: "12px",
-          color: "#888",
+          color: "#9393b0",
+          letterSpacing: "0.2px",
         }}
       >
-        Paste directly into Gmail, Outlook, or Apple Mail signature settings.
+        Paste directly into Gmail, Outlook, or Apple Mail signature settings
       </p>
     </div>
   );
