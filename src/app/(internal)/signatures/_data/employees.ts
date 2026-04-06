@@ -14,4 +14,11 @@ export const employees: Record<string, Employee> = {
     phone: "786.554.6481",
     email: "michael@360summits.com",
   },
+  "daniel-giordano": {
+    slug: "daniel-giordano",
+    name: "Daniel Giordano",
+    title: "Chief Executive Officer",
+    phone: "561.703.7604",
+    email: "dan@360summits.com",
+  },
 };
