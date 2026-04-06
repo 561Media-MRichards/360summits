@@ -10,7 +10,7 @@ export const employees: Record<string, Employee> = {
   "michael-richards": {
     slug: "michael-richards",
     name: "Michael Richards",
-    title: "Revenue Engineer",
+    title: "Chief Revenue Officer",
     phone: "786.554.6481",
     email: "michael@360summits.com",
   },
